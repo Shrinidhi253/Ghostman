@@ -46,4 +46,15 @@ div.ghosts img {
     height: 82px;
 }
 
+div.word table {
+    text-align: center;
+    border-spacing: 10px;
+    margin: auto;
 
+}
+
+div.word td {
+    width: 30px;
+    height: 20px;
+    border-bottom: 1px solid white;
+}

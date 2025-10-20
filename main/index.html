@@ -13,7 +13,7 @@
             <div class="ghosts"></div>
         </div>
 
-        <div class="word">Word</div>
+        <div class="word"></div>
 
         <div class="alphabets">Alphabets</div>
 
@@ -22,7 +22,7 @@
         <div class="userInputs">User Input</div>
 
         <script type="module">
-            import {PumpkinPatch, Ghosts} from "./animation.js";
+            import {PumpkinPatch, Ghosts, WordBlock} from "./graphics.js";
             const pumpkinPatch = new PumpkinPatch(10, 10);
             pumpkinPatch.main();
             pumpkinPatch.fillPumpkinPatch(14)
@@ -31,6 +31,11 @@
             ghosts.main();
             ghosts.freeGhost(2);
             ghosts.breakOutOfCage(3);
+
+            const wordBlock = new WordBlock("somEthings");
+            wordBlock.main();
+            wordBlock.fillLetter("e");
+            wordBlock.fillLetter("s");
         </script>
     </body>
 </html>

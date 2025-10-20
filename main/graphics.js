@@ -72,3 +72,38 @@ export class Ghosts {
         row.innerHTML = '<img src="/images/angry_ghost.svg">';
     }
 }
+
+export class WordBlock {
+    wordBlock = document.querySelector(".word");
+    grid = document.createElement("table");
+
+    constructor(word) {
+        this.word = word;
+    }
+
+    main() {
+        this.createLetterSpaces();
+        this.wordBlock.appendChild(this.grid);
+    }
+
+    createLetterSpaces() {
+        let row = document.createElement("tr");
+
+        for (let i = 0; i < this.word.length; i++) {
+            let col = document.createElement("td");
+            col.id = `Word(0,${i})`
+            row.appendChild(col);
+        }
+
+        this.grid.appendChild(row);
+    }
+
+    fillLetter(letter) {
+        for (let i = 0; i < this.word.length; i++) {
+            if (this.word[i].toLowerCase() == letter.toLowerCase()) {
+                let letterBlock = document.getElementById(`Word(0,${i})`);
+                letterBlock.innerHTML = `${letter.toUpperCase()}`;
+            }
+        }
+    }
+}
