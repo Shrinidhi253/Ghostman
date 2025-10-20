@@ -1,30 +1,38 @@
 export class PumpkinPatch {
-    private patch : HTMLDivElement = document.querySelector(".pumpkinPatch")!;
-    private grid : HTMLTableElement = document.createElement("table");
-    private rows : number;
-    private cols : number;
+    patch = document.querySelector(".pumpkinPatch");
+    grid = document.createElement("table");
+    rows;
+    cols;
 
-    constructor(rows: number, cols : number) {
+    constructor(rows, cols) {
         this.rows = rows;
         this.cols = cols;
     }
 
-    main() : void {
+    main() {
         this.createPumpkinPatch();
         this.patch.appendChild(this.grid);
     }
 
-    createPumpkinPatch() : void {
-        for (let i : number = 0; i < this.rows; i++) {
-            let row : HTMLTableRowElement = document.createElement("tr");
+    createPumpkinPatch() {
+        for (let i = 0; i < this.rows; i++) {
+            let row = document.createElement("tr");
 
-            for (let j : number = 0; j < this.cols; j++) {
-                let col : HTMLTableCellElement = document.createElement("td");
+            for (let j = 0; j < this.cols; j++) {
+                let col = document.createElement("td");
                 col.id = `${i}-${j}`;
-                col.textContent = `${i}-${j}`;
                 row.appendChild(col);
             }
             this.grid.appendChild(row);
+        }
+    }
+
+    fillPumpkinPatch(numPumpkins) {
+        for (let i = 0; i < numPumpkins; i++) {
+            var rowInd = Math.floor(i / this.rows);
+            var colInd = i % this.cols;
+            var cell = document.getElementById(`${rowInd}-${colInd}`)
+            cell.innerHTML = '<img src="/images/pumpkin.svg">'
         }
     }
 
