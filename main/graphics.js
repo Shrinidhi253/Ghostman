@@ -139,4 +139,21 @@ export class Alphabets {
         this.grid.appendChild(row1);
         this.grid.appendChild(row2);
     }
+
+    highlightAlphabet(alphabet, guessCategory) {
+        let colour;
+        if (guessCategory.toLowerCase() == "correct") {
+            colour = "#49863bff";
+        }
+        else {
+            colour = "#cc4b3d";
+        }
+
+        let alphabetPos = this.alphabets.indexOf(alphabet.toLowerCase());
+        let rowInd = Math.floor(alphabetPos / 13);
+        let colInd = alphabetPos % 13;
+
+        let alphabetCell = document.getElementById(`Alphabets(${rowInd},${colInd})`);
+        alphabetCell.style.backgroundColor = colour;
+    }
 }
