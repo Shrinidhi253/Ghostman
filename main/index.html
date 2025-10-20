@@ -8,7 +8,13 @@
     <body>
         <h1>Ghostman</h1>
         <div class="animation">
-            <div class="pumpkinPatch">Pumpkin Patch</div>
+            <div class="pumpkinPatch">
+                <script type="module">
+                    import PumpkinPatch from "./animation.ts";
+                    const pumpkinPatch = new PumpkinPatch(10, 10);
+                    pumpkinPatch.main();
+                </script>
+            </div>
             <div class="ghosts">Ghosts</div>
         </div>
         <div class="word">Word</div>
