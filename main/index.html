@@ -7,19 +7,28 @@
 
     <body>
         <h1>Ghostman</h1>
+
         <div class="animation">
             <div class="pumpkinPatch"></div>
-            <div class="ghosts">Ghosts</div>
+            <div class="ghosts"></div>
         </div>
+
         <div class="word">Word</div>
+
         <div class="alphabets">Alphabets</div>
+
         <div class="guessOptions">Guess Options</div>
+        
         <div class="userInputs">User Input</div>
+
         <script type="module">
-            import {PumpkinPatch} from "./animation.js";
+            import {PumpkinPatch, Ghosts} from "./animation.js";
             const pumpkinPatch = new PumpkinPatch(10, 10);
             pumpkinPatch.main();
-            pumpkinPatch.fillPumpkinPatch(155)
+            pumpkinPatch.fillPumpkinPatch(14)
+
+            const ghosts = new Ghosts();
+            ghosts.main();
         </script>
     </body>
 </html>

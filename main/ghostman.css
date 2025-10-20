@@ -29,16 +29,21 @@ div.pumpkinPatch img {
     opacity: 80%;
 }
 
+div.pumpkinPatch td {
+    width: 56px;
+    height: 46px;
+    border: 3px solid #97b47d;
+    padding: 0px;
+    background-color: #60734f;
+}
+
 div.ghosts {
     width: 100px
 }
 
-td {
-    width: 56px;
-    height: 46px;
-    border: 3px solid black;
-    border-color: #97b47d;
-    padding: 0px;
-    background-color: #60734f;
+div.ghosts img {
+    width: 100px;
+    height: 82px;
 }
+
 
