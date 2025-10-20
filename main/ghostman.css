@@ -5,6 +5,12 @@ body {
     max-height: fit-content;
     color: whitesmoke;
     background-color: rgb(37, 37, 37);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    font-family: "stencil";
+    font-weight: lighter;
 }
 
 div {
@@ -57,4 +63,15 @@ div.word td {
     width: 30px;
     height: 20px;
     border-bottom: 1px solid white;
+}
+
+div.alphabets table {
+    text-align: center;
+    border-spacing: 5px;
+    margin: auto;
+}
+div.alphabets td {
+    width: 40px;
+    height: 40px;
+    border: 1px solid white;
 }

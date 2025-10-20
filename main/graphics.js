@@ -102,8 +102,41 @@ export class WordBlock {
         for (let i = 0; i < this.word.length; i++) {
             if (this.word[i].toLowerCase() == letter.toLowerCase()) {
                 let letterBlock = document.getElementById(`Word(0,${i})`);
-                letterBlock.innerHTML = `${letter.toUpperCase()}`;
+                letterBlock.innerText = `${letter.toUpperCase()}`;
             }
         }
+    }
+}
+
+export class Alphabets {
+    alphabetsBlock = document.querySelector(".alphabets");
+    grid = document.createElement("table");
+    alphabets = "abcdefghijklmnopqrstuvwxyz";
+
+    main() {
+        this.displayAllAlphabets();
+        this.alphabetsBlock.appendChild(this.grid);
+    }
+
+    displayAllAlphabets() {
+        let row1 = document.createElement("tr");
+        let row2 = document.createElement("tr");
+
+        for (let i = 0; i < 26; i++) {
+            let col = document.createElement("td");
+
+            if (Math.floor(i/13) == 0) {
+                col.id = `Alphabets(0,${i})`;
+                row1.appendChild(col)
+            }
+            else {
+                col.id = `Alphabets(0,${i})`;
+                row2.appendChild(col);
+            }
+
+            col.innerText = this.alphabets[i].toUpperCase();
+        }
+        this.grid.appendChild(row1);
+        this.grid.appendChild(row2);
     }
 }
