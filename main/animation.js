@@ -61,4 +61,14 @@ export class Ghosts {
             this.grid.appendChild(row);
         }
     }
+
+    freeGhost(rowInd) {
+        let row = document.getElementById(`Ghosts(${rowInd},0)`);
+        row.innerHTML = '<img src="/images/happy_ghost.svg">';
+    }
+
+    breakOutOfCage(rowInd) {
+        let row = document.getElementById(`Ghosts(${rowInd},0)`);
+        row.innerHTML = '<img src="/images/angry_ghost.svg">';
+    }
 }
