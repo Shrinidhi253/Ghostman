@@ -17,30 +17,10 @@
 
         <div class="alphabets"></div>
 
-        <div class="guessOptions">Guess Options</div>
+        <div class="guessOptions"></div>
 
         <div class="userInputs">User Input</div>
 
-        <script type="module">
-            import {PumpkinPatch, Ghosts, WordBlock, Alphabets} from "./graphics.js";
-            const pumpkinPatch = new PumpkinPatch(10, 10);
-            pumpkinPatch.main();
-            pumpkinPatch.fillPumpkinPatch(14)
-
-            const ghosts = new Ghosts();
-            ghosts.main();
-            ghosts.freeGhost(2);
-            ghosts.breakOutOfCage(3);
-
-            const wordBlock = new WordBlock("somEthings");
-            wordBlock.main();
-            wordBlock.fillLetter("e");
-            wordBlock.fillLetter("s");
-
-            const alphabets = new Alphabets();
-            alphabets.main();
-            alphabets.highlightAlphabet("a", "incorrect");
-            alphabets.highlightAlphabet("e", "correct");
-        </script>
+        <script type="module" src="ghostman.js"></script>
     </body>
 </html>

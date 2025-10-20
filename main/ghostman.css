@@ -14,7 +14,6 @@ h1 {
 }
 
 div {
-    border: 1px solid white;
     text-align: center;
     max-width: 610px;
 }
@@ -74,4 +73,17 @@ div.alphabets td {
     width: 40px;
     height: 40px;
     border: 1px solid white;
+}
+
+div.guessOptions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+div.guessOptions button {
+    height: 35px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 }
