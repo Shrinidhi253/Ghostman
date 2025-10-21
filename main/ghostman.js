@@ -4,6 +4,7 @@ let ghosts;
 let wordBlock;
 let alphabets;
 let turns = 6;
+let currentPumpkins = 0;
 
 function main() {
     pumpkinPatch = new PumpkinPatch(10, 10);
@@ -15,7 +16,7 @@ function main() {
     ghosts.main();
     wordBlock.main();
     alphabets.main();
-
+    
     addGuessOptions();
 }
 
@@ -73,16 +74,20 @@ function processGuessedLetter() {
     let word = wordBlock.getWord();
 
     if (word.includes(guessedLetter)) {
+        pumpkinPatch.addPumpkins(0, 1);
+        currentPumpkins += 1;
+
         alphabets.highlightAlphabet(guessedLetter, "correct");
-        pumpkinPatch.fillPumpkinPatch(14);
-        ghosts.freeGhost(6-turns);
+        ghosts.freeGhost(6 - turns);
         wordBlock.fillLetter(guessedLetter);
     }
     else {
-        alphabets.highlightAlphabet(guessedLetter, "incorrect");
-        ghosts.breakOutOfCage(6-turns);
-    }
+        currentPumpkins -= 1;
 
+        alphabets.highlightAlphabet(guessedLetter, "incorrect");
+        ghosts.breakOutOfCage(6 - turns);
+    }
+    
     turns -= 1
 }
 

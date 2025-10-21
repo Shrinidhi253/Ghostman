@@ -28,11 +28,29 @@ export class PumpkinPatch {
     }
 
     fillPumpkinPatch(numPumpkins) {
+        
         for (let i = 0; i < numPumpkins; i++) {
             var rowInd = Math.floor(i / this.rows);
             var colInd = i % this.cols;
             var cell = document.getElementById(`PumpkinPatch(${rowInd},${colInd})`)
             cell.innerHTML = '<img src="/images/pumpkin.svg">'
+        }
+    }
+
+    addPumpkins(currentPumpkins, pumpkinsToAdd) {
+        let startRowInd = Math.floor(currentPumpkins / 10);
+        let startColInd = (currentPumpkins % 10);
+
+        for (let i = 0; i < pumpkinsToAdd; i++) {
+            if (startColInd > 9) {
+                startRowInd += 1;
+                startColInd = 0;
+            }
+
+            let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
+            pumpkinCell.innerHTML = '<img src="/images/pumpkin.svg">';
+
+            startColInd += 1;
         }
     }
 
