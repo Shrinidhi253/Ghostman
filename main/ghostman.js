@@ -33,13 +33,23 @@ function addGuessOptions() {
 }
 
 function promptGuessLetter() {
+    let guessBlock = document.querySelector(".guessOptions");
+
     const alphabets = "abcdefghijklmnopqrstuvwxyz";
 
+    let promptText = document.createElement("p");
     let guessPrompt = document.createElement("select");
     let confirm = document.createElement("button");
 
+    promptText.textContent = "Which letter do you guess? ";
     guessPrompt.id = "guessedLetter";
-    
+    confirm.textContent = "GUESS";
+
+    removeExistingElements(guessBlock);
+    guessBlock.appendChild(promptText);
+    guessBlock.appendChild(guessPrompt);
+    guessBlock.appendChild(confirm);
+
     for (let i = 0; i < 26; i++) {
         let option = document.createElement("option");
         option.text = alphabets[i].toUpperCase();
@@ -49,8 +59,6 @@ function promptGuessLetter() {
     }
 
     confirm.addEventListener("click", processGuessedLetter);
-    
-    
 
 }
 
@@ -58,11 +66,27 @@ function promptGuessWord() {
 
 }
 function processGuessedLetter() {
+    let guessedLetter = document.getElementById("guessedLetter").value;
+    let word = wordBlock.getWord();
 
+    if (word.includes(guessedLetter)) {
+        alphabets.highlightAlphabet(guessedLetter, "correct");
+        pumpkinPatch.fillPumpkinPatch(14);
+        ghosts.freeGhost(0);
+        wordBlock.fillLetter(guessedLetter);
+    }
+    else {
+        alphabets.highlightAlphabet(guessedLetter, "incorrect");
+        ghosts.breakOutOfCage(1);
+    }
 }
 
 function processGuessedWord() {
 
+}
+
+function removeExistingElements(obj) {
+    obj.innerHTML = "";
 }
 
 window.addEventListener("DOMContentLoaded", main);

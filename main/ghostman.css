@@ -86,4 +86,13 @@ div.guessOptions button {
     height: 35px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
+    margin-top: 1.5%;
+}
+
+div.guessOptions select {
+    width: 45px;
+    height: 35px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 1.5%;
+    text-align: center;
 }

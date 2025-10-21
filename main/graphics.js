@@ -106,6 +106,10 @@ export class WordBlock {
             }
         }
     }
+
+    getWord() {
+        return this.word;
+    }
 }
 
 export class Alphabets {
