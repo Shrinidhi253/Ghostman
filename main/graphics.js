@@ -38,13 +38,13 @@ export class PumpkinPatch {
     }
 
     addPumpkins(currentPumpkins, pumpkinsToAdd) {
-        let startRowInd = Math.floor(currentPumpkins / 10);
-        let startColInd = (currentPumpkins % 10);
+        let startRowInd = Math.floor(currentPumpkins / this.cols);
+        let startColInd = (currentPumpkins % this.cols);
 
         for (let i = 0; i < pumpkinsToAdd; i++) {
             if (startColInd > 9) {
                 startRowInd += 1;
-                startColInd = 0;
+                startColInd %= this.cols;
             }
 
             let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
@@ -52,6 +52,24 @@ export class PumpkinPatch {
 
             startColInd += 1;
         }
+    }
+
+    removePumpkins(currentPumpkins, pumpkinsToRemove) {
+        let startRowInd = Math.floor((currentPumpkins - 1) / this.cols);
+        let startColInd = ((currentPumpkins - 1) % this.cols);
+
+        for (let i = 0; i < pumpkinsToRemove; i++) {
+            if (startColInd < 0) {
+                startRowInd -= 1;
+                startColInd %= cols;
+            }
+
+            let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
+            pumpkinCell.innerHTML = "";
+
+            startColInd -= 1;
+        }
+
     }
 
 }

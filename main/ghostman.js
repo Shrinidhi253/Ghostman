@@ -74,7 +74,7 @@ function processGuessedLetter() {
     let word = wordBlock.getWord();
 
     if (word.includes(guessedLetter)) {
-        pumpkinPatch.addPumpkins(0, 1);
+        pumpkinPatch.addPumpkins(currentPumpkins, 1);
         currentPumpkins += 1;
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
@@ -82,7 +82,10 @@ function processGuessedLetter() {
         wordBlock.fillLetter(guessedLetter);
     }
     else {
-        currentPumpkins -= 1;
+        if (currentPumpkins != 0) {
+            pumpkinPatch.removePumpkins(currentPumpkins, 1)
+            currentPumpkins -= 1;
+        }
 
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
         ghosts.breakOutOfCage(6 - turns);
