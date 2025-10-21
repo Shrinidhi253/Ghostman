@@ -3,10 +3,9 @@ let pumpkinPatch;
 let ghosts;
 let wordBlock;
 let alphabets;
+let turns = 6;
 
 function main() {
-    addGuessOptions();
-
     pumpkinPatch = new PumpkinPatch(10, 10);
     ghosts = new Ghosts();
     wordBlock = new WordBlock("somethings");
@@ -17,7 +16,7 @@ function main() {
     wordBlock.main();
     alphabets.main();
 
-    alphabets.highlightAlphabet("y", "correct");
+    addGuessOptions();
 }
 
 function addGuessOptions() {
@@ -32,6 +31,7 @@ function addGuessOptions() {
     guessWord.textContent = "Guess the Word";
     guessBlock.appendChild(guessWord);
     guessWord.addEventListener("click", promptGuessWord);
+
 }
 
 function promptGuessLetter() {
@@ -67,6 +67,7 @@ function promptGuessLetter() {
 function promptGuessWord() {
 
 }
+
 function processGuessedLetter() {
     let guessedLetter = document.getElementById("guessedLetter").value;
     let word = wordBlock.getWord();
@@ -74,13 +75,15 @@ function processGuessedLetter() {
     if (word.includes(guessedLetter)) {
         alphabets.highlightAlphabet(guessedLetter, "correct");
         pumpkinPatch.fillPumpkinPatch(14);
-        ghosts.freeGhost(0);
+        ghosts.freeGhost(6-turns);
         wordBlock.fillLetter(guessedLetter);
     }
     else {
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
-        ghosts.breakOutOfCage(1);
+        ghosts.breakOutOfCage(6-turns);
     }
+
+    turns -= 1
 }
 
 function processGuessedWord() {
