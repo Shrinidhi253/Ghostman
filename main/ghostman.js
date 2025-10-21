@@ -16,6 +16,8 @@ function main() {
     ghosts.main();
     wordBlock.main();
     alphabets.main();
+
+    alphabets.highlightAlphabet("y", "correct");
 }
 
 function addGuessOptions() {

@@ -130,11 +130,11 @@ export class Alphabets {
             let col = document.createElement("td");
 
             if (Math.floor(i/13) == 0) {
-                col.id = `Alphabets(0,${i})`;
+                col.id = `Alphabets(0,${i % 13})`;
                 row1.appendChild(col)
             }
             else {
-                col.id = `Alphabets(0,${i})`;
+                col.id = `Alphabets(1,${i % 13})`;
                 row2.appendChild(col);
             }
 
