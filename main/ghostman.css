@@ -8,10 +8,10 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 
-/*FIXME Fix the heading alignment*/
 h1 {
     font-family: "stencil";
     font-weight: lighter;
+    margin-right: 20%;
 }
 
 div.animation {
