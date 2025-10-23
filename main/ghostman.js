@@ -112,7 +112,23 @@ function processGuessedLetter() {
 }
 
 function processGuessedWord() {
+    let guessedWord = document.getElementById("guessedWord").value;
+    let word = wordBlock.getWord();
 
+    if (guessedWord.toLowerCase() == word.toLowerCase()) {
+        let pumpkinsToAdd = 0
+        for (let i = 6 - turns; i < turns; i++) {
+            ghosts.freeGhost(i);
+            pumpkinsToAdd += 2
+        }
+        
+        pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
+    }
+    else {
+
+    }
+
+    turns = 0;
 }
 
 function removeExistingElements(obj) {

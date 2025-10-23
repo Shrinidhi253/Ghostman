@@ -8,6 +8,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 
+/*FIXME Fix the heading alignment*/
 h1 {
     font-family: "stencil";
     font-weight: lighter;
@@ -92,4 +93,4 @@ div.guessOptions select {
     text-align: center;
 }
 
-/*TODO Fix the input text box size for Guess the word*/
+/*TODO Change the input text box size for Guess the word*/
