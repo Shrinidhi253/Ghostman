@@ -120,25 +120,24 @@ function processGuessedWord() {
     if (guessedWord.toLowerCase() == word.toLowerCase()) {
         let pumpkinsToAdd = 0
 
-        for (let i = 6 - turns; i < turns; i++) {
+        for (let i = 6 - turns; i < 6; i++) {
             ghosts.freeGhost(i);
             pumpkinsToAdd += 2
         }
 
         pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
     }
-    /*
+    
     else {
         let pumpkinsToRemove = 0;
 
-        for (let i = 6 - turns; i < turns; i++) {
+        for (let i = 6 - turns; i < 6; i++) {
             ghosts.breakOutOfCage(i);
             pumpkinsToRemove += 1;
         }
 
         pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
     }
-    */
 
     turns = 0;
 }
