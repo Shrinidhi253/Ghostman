@@ -27,17 +27,6 @@ export class PumpkinPatch {
         }
     }
 
-    //TODO remove this function
-    fillPumpkinPatch(numPumpkins) {
-        
-        for (let i = 0; i < numPumpkins; i++) {
-            var rowInd = Math.floor(i / this.rows);
-            var colInd = i % this.cols;
-            var cell = document.getElementById(`PumpkinPatch(${rowInd},${colInd})`)
-            cell.innerHTML = '<img src="/images/pumpkin.svg">'
-        }
-    }
-
     addPumpkins(currentPumpkins, pumpkinsToAdd) {
         let startRowInd = Math.floor(currentPumpkins / this.cols);
         let startColInd = (currentPumpkins % this.cols);
