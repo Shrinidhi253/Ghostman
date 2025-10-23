@@ -108,6 +108,8 @@ function processGuessedLetter() {
         ghosts.breakOutOfCage(6 - turns);
     }
     
+    removeExistingElements(document.querySelector(".guessOptions"));
+    addGuessOptions();
     turns -= 1
 }
 
@@ -117,16 +119,26 @@ function processGuessedWord() {
 
     if (guessedWord.toLowerCase() == word.toLowerCase()) {
         let pumpkinsToAdd = 0
+
         for (let i = 6 - turns; i < turns; i++) {
             ghosts.freeGhost(i);
             pumpkinsToAdd += 2
         }
-        
+
         pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
     }
+    /*
     else {
+        let pumpkinsToRemove = 0;
 
+        for (let i = 6 - turns; i < turns; i++) {
+            ghosts.breakOutOfCage(i);
+            pumpkinsToRemove += 1;
+        }
+
+        pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
     }
+    */
 
     turns = 0;
 }
