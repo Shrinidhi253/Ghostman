@@ -93,4 +93,10 @@ div.guessOptions select {
     text-align: center;
 }
 
-/*TODO Change the input text box size for Guess the word*/
+div.guessOptions input {
+    height: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 1.5%;
+    text-align: center;
+}
