@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    width: 610px;
+    width: 645px;
     margin: auto;
     max-height: fit-content;
     color: whitesmoke;
@@ -13,18 +13,13 @@ h1 {
     font-weight: lighter;
 }
 
-div {
-    text-align: center;
-    max-width: 610px;
-}
-
 div.animation {
     display: flex;
     column-gap: 10px;
 }
 
 div.pumpkinPatch {
-    width: 500px;
+    width: 535px;
     height:535px;
 }
 
@@ -35,7 +30,7 @@ div.pumpkinPatch img {
 }
 
 div.pumpkinPatch td {
-    width: 56px;
+    width: 46px;
     height: 46px;
     border: 3px solid #97b47d;
     padding: 0px;

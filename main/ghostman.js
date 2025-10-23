@@ -16,7 +16,7 @@ function main() {
     ghosts.main();
     wordBlock.main();
     alphabets.main();
-    
+
     addGuessOptions();
 }
 

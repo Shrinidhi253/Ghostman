@@ -27,6 +27,7 @@ export class PumpkinPatch {
         }
     }
 
+    //TODO remove this function
     fillPumpkinPatch(numPumpkins) {
         
         for (let i = 0; i < numPumpkins; i++) {
