@@ -66,7 +66,24 @@ function promptGuessLetter() {
 }
 
 function promptGuessWord() {
+    //TODO guessBlock and button creation are repeated from promptGuessLetter - make a function?
+    let guessBlock = document.querySelector(".guessOptions");
 
+    let promptText = document.createElement("p");
+    let guessPrompt = document.createElement("input");
+    let confirm = document.createElement("button");
+
+    promptText.textContent = "What is the word? ";
+    guessPrompt.type = "text";
+    guessPrompt.id = "guessedWord";
+    confirm.textContent = "GUESS";
+
+    removeExistingElements(guessBlock);
+    guessBlock.appendChild(promptText);
+    guessBlock.appendChild(guessPrompt);
+    guessBlock.appendChild(confirm);
+
+    confirm.addEventListener("click", processGuessedWord);
 }
 
 function processGuessedLetter() {
