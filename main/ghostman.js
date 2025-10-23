@@ -3,7 +3,8 @@ let pumpkinPatch;
 let ghosts;
 let wordBlock;
 let alphabets;
-let turns = 6;
+let maxTurns = 6;
+let turn = 1;
 let currentPumpkins = 0;
 
 function main() {
@@ -95,7 +96,7 @@ function processGuessedLetter() {
         currentPumpkins += 1;
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
-        ghosts.freeGhost(6 - turns);
+        ghosts.freeGhost(turn-1);
         wordBlock.fillLetter(guessedLetter);
     }
     else {
@@ -105,23 +106,31 @@ function processGuessedLetter() {
         }
 
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
-        ghosts.breakOutOfCage(6 - turns);
+        ghosts.breakOutOfCage(turn-1);
     }
     
-    removeExistingElements(document.querySelector(".guessOptions"));
-    addGuessOptions();
-    turns -= 1
+    if (turn == maxTurns) {
+        endGame();
+    }
+
+    else {
+        removeExistingElements(document.querySelector(".guessOptions"));
+        addGuessOptions();
+        turn += 1
+    }
 }
 
 function processGuessedWord() {
     let guessedWord = document.getElementById("guessedWord").value;
     let word = wordBlock.getWord();
 
+    endGame();
+
     if (guessedWord.toLowerCase() == word.toLowerCase()) {
         let pumpkinsToAdd = 0
 
-        for (let i = 6 - turns; i < 6; i++) {
-            ghosts.freeGhost(i);
+        for (let i = turn; i <= maxTurns; i++) {
+            ghosts.freeGhost(i-1);
             pumpkinsToAdd += 2
         }
 
@@ -131,19 +140,27 @@ function processGuessedWord() {
     else {
         let pumpkinsToRemove = 0;
 
-        for (let i = 6 - turns; i < 6; i++) {
-            ghosts.breakOutOfCage(i);
+        for (let i = turn; i <= maxTurns; i++) {
+            ghosts.breakOutOfCage(i-1);
             pumpkinsToRemove += 1;
         }
 
         pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
     }
-
-    turns = 0;
 }
 
 function removeExistingElements(obj) {
     obj.innerHTML = "";
+}
+
+function endGame() {
+    let guessBlock = document.querySelector(".guessOptions")
+    removeExistingElements(guessBlock);
+
+    let exitMessage = document.createElement("p");
+    exitMessage.textContent = "GAME OVER";
+
+    guessBlock.appendChild(exitMessage);
 }
 
 window.addEventListener("DOMContentLoaded", main);
