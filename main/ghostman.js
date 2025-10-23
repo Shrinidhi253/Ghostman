@@ -21,6 +21,7 @@ function main() {
     addGuessOptions();
 }
 
+
 function addGuessOptions() {
     let guessBlock = document.querySelector(".guessOptions");
     let guessLetter = document.createElement("button");
@@ -36,6 +37,7 @@ function addGuessOptions() {
 
 }
 
+
 function promptGuessLetter() {
     let guessBlock = document.querySelector(".guessOptions");
 
@@ -43,16 +45,13 @@ function promptGuessLetter() {
 
     let promptText = document.createElement("p");
     let guessPrompt = document.createElement("select");
-    let confirm = document.createElement("button");
 
     promptText.textContent = "Which letter do you guess? ";
     guessPrompt.id = "guessedLetter";
-    confirm.textContent = "GUESS";
 
     removeExistingElements(guessBlock);
     guessBlock.appendChild(promptText);
     guessBlock.appendChild(guessPrompt);
-    guessBlock.appendChild(confirm);
 
     for (let i = 0; i < 26; i++) {
         let option = document.createElement("option");
@@ -62,30 +61,28 @@ function promptGuessLetter() {
         guessPrompt.appendChild(option);
     }
 
-    confirm.addEventListener("click", processGuessedLetter);
+    addGuessButton("letter");
 
 }
 
+
 function promptGuessWord() {
-    //TODO guessBlock and button creation are repeated from promptGuessLetter - make a function?
     let guessBlock = document.querySelector(".guessOptions");
 
     let promptText = document.createElement("p");
     let guessPrompt = document.createElement("input");
-    let confirm = document.createElement("button");
 
     promptText.textContent = "What is the word? ";
     guessPrompt.type = "text";
     guessPrompt.id = "guessedWord";
-    confirm.textContent = "GUESS";
 
     removeExistingElements(guessBlock);
     guessBlock.appendChild(promptText);
     guessBlock.appendChild(guessPrompt);
-    guessBlock.appendChild(confirm);
 
-    confirm.addEventListener("click", processGuessedWord);
+    addGuessButton("word");
 }
+
 
 function processGuessedLetter() {
     let guessedLetter = document.getElementById("guessedLetter").value;
@@ -120,6 +117,7 @@ function processGuessedLetter() {
     }
 }
 
+
 function processGuessedWord() {
     let guessedWord = document.getElementById("guessedWord").value;
     let word = wordBlock.getWord();
@@ -149,9 +147,26 @@ function processGuessedWord() {
     }
 }
 
+
 function removeExistingElements(obj) {
     obj.innerHTML = "";
 }
+
+
+function addGuessButton(category) {
+    let confirm = document.createElement("button");
+    confirm.textContent = "GUESS";
+
+    document.querySelector(".guessOptions").appendChild(confirm);
+
+    if (category == "letter") {
+        confirm.addEventListener("click", processGuessedLetter)
+    }
+    else if (category == "word") {
+        confirm.addEventListener("click", processGuessedWord);
+    }
+}
+
 
 function endGame() {
     let guessBlock = document.querySelector(".guessOptions")
@@ -162,5 +177,6 @@ function endGame() {
 
     guessBlock.appendChild(exitMessage);
 }
+
 
 window.addEventListener("DOMContentLoaded", main);
