@@ -93,13 +93,13 @@ export class Ghosts {
     }
 
     //FIXME make these the new ghost arrangement friendly
-    freeGhost(rowInd) {
-        let row = document.getElementById(`Ghosts(${rowInd},0)`);
+    freeGhost(rowInd, colInd) {
+        let row = document.getElementById(`Ghosts(${rowInd},${colInd})`);
         row.innerHTML = '<img src="/images/happy_ghost.svg">';
     }
 
-    breakOutOfCage(rowInd) {
-        let row = document.getElementById(`Ghosts(${rowInd},0)`);
+    breakOutOfCage(rowInd, colInd) {
+        let row = document.getElementById(`Ghosts(${rowInd},${colInd})`);
         row.innerHTML = '<img src="/images/angry_ghost.svg">';
     }
 }
