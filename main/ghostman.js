@@ -3,7 +3,7 @@ let pumpkinPatch;
 let ghosts;
 let wordBlock;
 let alphabets;
-let maxTurns = 6;
+let maxTurns = 10;
 let turn = 1;
 let currentPumpkins = 0;
 
@@ -93,7 +93,7 @@ function processGuessedLetter() {
         currentPumpkins += 1;
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
-        ghosts.freeGhost(turn-1);
+        ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
         wordBlock.fillLetter(guessedLetter);
     }
     else {
@@ -103,7 +103,7 @@ function processGuessedLetter() {
         }
 
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
-        ghosts.breakOutOfCage(turn-1);
+        ghosts.breakOutOfCage((turn-1) % 5, Math.floor((turn-1)/5));
     }
     
     if (turn == maxTurns) {
@@ -128,7 +128,7 @@ function processGuessedWord() {
         let pumpkinsToAdd = 0
 
         for (let i = turn; i <= maxTurns; i++) {
-            ghosts.freeGhost(i-1);
+            ghosts.freeGhost((i-1) % 5, Math.floor((i-1)/5));
             pumpkinsToAdd += 2
         }
 
@@ -139,7 +139,7 @@ function processGuessedWord() {
         let pumpkinsToRemove = 0;
 
         for (let i = turn; i <= maxTurns; i++) {
-            ghosts.breakOutOfCage(i-1);
+            ghosts.breakOutOfCage((i-1) % 5, Math.floor((i-1)/5));
             pumpkinsToRemove += 1;
         }
 
