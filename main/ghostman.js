@@ -10,7 +10,7 @@ let currentPumpkins = 0;
 function main() {
     pumpkinPatch = new PumpkinPatch(10, 10);
     ghosts = new Ghosts();
-    wordBlock = new WordBlock("somethings");
+    wordBlock = new WordBlock("pneumonic");
     alphabets = new Alphabets();
 
     pumpkinPatch.main();

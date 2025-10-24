@@ -67,6 +67,7 @@ export class PumpkinPatch {
 export class Ghosts {
     ghosts = document.querySelector(".ghosts");
     grid = document.createElement("table");
+    //TODO maybe make it 10 ghosts? 6 seems too less
     rows = 6;
     cols = 1;
 
