@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    width: 645px;
+    width: 745px;
     margin: auto;
     max-height: fit-content;
     color: whitesmoke;
@@ -44,7 +44,7 @@ div.ghosts {
 
 div.ghosts img {
     width: 100px;
-    height: 82px;
+    height: 100px;
 }
 
 div.word table {
