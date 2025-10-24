@@ -67,9 +67,8 @@ export class PumpkinPatch {
 export class Ghosts {
     ghosts = document.querySelector(".ghosts");
     grid = document.createElement("table");
-    //TODO maybe make it 10 ghosts? 6 seems too less
-    rows = 6;
-    cols = 1;
+    rows = 5;
+    cols = 2;
 
     main() {
         this.createCages();
@@ -79,16 +78,21 @@ export class Ghosts {
     createCages() {
         for (let i = 0; i < this.rows; i++) {
             let row = document.createElement("tr");
-            let col = document.createElement("td");
 
-            col.id = `Ghosts(${i},0)`;
-            col.innerHTML = '<img src="/images/trapped_ghost.svg">'
+            for (let j = 0; j < this.cols; j++) {
+                let col = document.createElement("td");
 
-            row.appendChild(col);
+                col.id = `Ghosts(${i},${j})`;
+                col.innerHTML = '<img src="/images/trapped_ghost.svg">'
+
+                row.appendChild(col);
+            }
+
             this.grid.appendChild(row);
         }
     }
 
+    //FIXME make these the new ghost arrangement friendly
     freeGhost(rowInd) {
         let row = document.getElementById(`Ghosts(${rowInd},0)`);
         row.innerHTML = '<img src="/images/happy_ghost.svg">';
