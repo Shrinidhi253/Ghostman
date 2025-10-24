@@ -35,3 +35,5 @@ def find_definitions(filename):
 
     with open(f"./dataset/{filename}_defined.json", "w") as file:
         json.dump(definitions, file, indent = 4)
+
+find_definitions("strange_words")
