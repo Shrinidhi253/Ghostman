@@ -1,5 +1,5 @@
-import commonWordsData from "./dataset/common_words.json" with {type : "json"}
-import strangeWordsData from "./dataset/strange_words.json" with {type : "json"}
+import commonWordsData from "../dataset/common_words.json" with {type : "json"}
+import strangeWordsData from "../dataset/strange_words.json" with {type : "json"}
 
 export class WordGenerator {
     allWords;
