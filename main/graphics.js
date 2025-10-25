@@ -203,3 +203,30 @@ export class Alphabets {
         alphabetCell.style.backgroundColor = colour;
     }
 }
+
+export class Hint {
+    hintBlock = document.querySelector(".hint");
+    hint;
+
+    constructor(hint) {
+        this.hint = hint
+    }
+
+    addHintButton() {
+        let hintButton = document.createElement("button");
+        this.hintBlock.appendChild(hintButton);
+
+        hintButton.textContent = "GET HINT";
+
+        hintButton.addEventListener("click", () => this.showHint());
+    }
+
+    showHint() {
+        this.hintBlock.innerHTML = "";
+
+        let hintMessage = document.createElement("p");
+        hintMessage.textContent = this.hint;
+
+        this.hintBlock.appendChild(hintMessage);
+    }
+}

@@ -1,4 +1,4 @@
-import { PumpkinPatch, Ghosts, WordBlock, Alphabets } from "./graphics.js";
+import { PumpkinPatch, Ghosts, WordBlock, Alphabets, Hint } from "./graphics.js";
 import { WordGenerator } from "./wordGenerator.js" ;
 
 let pumpkinPatch;
@@ -6,6 +6,7 @@ let ghosts;
 let wordBlock;
 let alphabets;
 let wordGenerator;
+let hint;
 let maxTurns = 10;
 let turn = 1;
 let currentPumpkins = 0;
@@ -16,9 +17,11 @@ function main() {
 
     wordGenerator = new WordGenerator("normal");
     let word = wordGenerator.generateRandomWord();
+    let hintMessage = wordGenerator.getHint();
 
     wordBlock = new WordBlock(word);
     alphabets = new Alphabets();
+    hint = new Hint(hintMessage);
 
     pumpkinPatch.main();
     ghosts.main();
@@ -26,6 +29,7 @@ function main() {
     alphabets.main();
 
     addGuessOptions();
+    hint.addHintButton();
 }
 
 

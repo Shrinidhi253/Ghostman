@@ -62,4 +62,9 @@ export class WordGenerator {
     getGuessedWord() {
         return this.guessedWord;
     }
+
+    getHint() {
+        let hint = this.allWords[this.wordInd]["definition"];
+        return hint;
+    }
 }
