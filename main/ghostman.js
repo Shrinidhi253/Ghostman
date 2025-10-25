@@ -5,6 +5,7 @@ let pumpkinPatch;
 let ghosts;
 let wordBlock;
 let alphabets;
+let wordGenerator;
 let maxTurns = 10;
 let turn = 1;
 let currentPumpkins = 0;
@@ -13,7 +14,7 @@ function main() {
     pumpkinPatch = new PumpkinPatch(10, 10);
     ghosts = new Ghosts();
 
-    let wordGenerator = new WordGenerator("normal");
+    wordGenerator = new WordGenerator("normal");
     let word = wordGenerator.generateRandomWord();
 
     wordBlock = new WordBlock(word);
@@ -92,6 +93,7 @@ function promptGuessWord() {
 
 function processGuessedLetter() {
     let guessedLetter = document.getElementById("guessedLetter").value;
+    wordGenerator.buildGuessedWord(guessedLetter);
     let word = wordBlock.getWord();
 
     if (word.includes(guessedLetter)) {
@@ -116,6 +118,11 @@ function processGuessedLetter() {
         endGame();
     }
 
+    else if (wordGenerator.getGuessedWord() == word) {
+        freeAllGhosts();
+        endGame()
+    }
+    
     else {
         removeExistingElements(document.querySelector(".guessOptions"));
         addGuessOptions();
@@ -131,29 +138,36 @@ function processGuessedWord() {
     endGame();
 
     if (guessedWord.toLowerCase() == word.toLowerCase()) {
-        let pumpkinsToAdd = 0
-
-        for (let i = turn; i <= maxTurns; i++) {
-            ghosts.freeGhost((i-1) % 5, Math.floor((i-1)/5));
-            pumpkinsToAdd += 2
-        }
-
+        freeAllGhosts()
         wordBlock.autoFillLetters(word);
-        pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
     }
     
     else {
-        let pumpkinsToRemove = 0;
-
-        for (let i = turn; i <= maxTurns; i++) {
-            ghosts.breakOutOfCage((i-1) % 5, Math.floor((i-1)/5));
-            pumpkinsToRemove += 1;
-        }
-
-        pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
+        breakOutAllGhosts();
     }
 }
 
+function freeAllGhosts() {
+    let pumpkinsToAdd = 0;
+
+    for (let i = turn; i <= maxTurns; i++) {
+        ghosts.freeGhost((i-1) % 5, Math.floor((i-1)/5));
+        pumpkinsToAdd += 2;
+    }
+
+    pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
+}
+
+function breakOutAllGhosts() {
+    let pumpkinsToRemove = 0;
+
+    for (let i = turn; i <= maxTurns; i++) {
+        ghosts.breakOutOfCage((i-1) % 5, Math.floor((i-1)/5));
+        pumpkinsToRemove += 1;
+    }
+
+    pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
+}
 
 function removeExistingElements(obj) {
     obj.innerHTML = "";
