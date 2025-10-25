@@ -6,6 +6,7 @@ export class WordGenerator {
     numWords;
     word;
     wordInd;
+    guessedWord;
 
     constructor(difficulty) {
         if (difficulty == "normal") {
@@ -21,6 +22,7 @@ export class WordGenerator {
     generateRandomWord() {
         this.wordInd = this.generateRandomInteger(0, this.numWords);
         this.word = this.allWords[this.wordInd]["word"];
+        this.guessedWord = "_".repeat(this.word.length);
         return this.word;
     }
 
@@ -38,5 +40,26 @@ export class WordGenerator {
             randomInt = Math.floor(Math.random() * (max - min)) + min;
         }
         return randomInt;
+    }
+
+    buildGuessedWord(letter) {
+        let builtWord = "";
+        for (let i = 0; i < this.guessedWord.length; i++) {
+            if (this.word[i].toLowerCase() == letter.toLowerCase()) {
+                builtWord += letter;
+            }
+            else if (this.guessedWord[i] != "_") {
+                builtWord += this.guessedWord[i];
+            }
+            else {
+                builtWord += "_";
+            }
+        }
+
+        this.guessedWord = builtWord;
+    }
+
+    getGuessedWord() {
+        return this.guessedWord;
     }
 }
