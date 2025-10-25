@@ -21,7 +21,7 @@ function main() {
 
 function startNewGame() {
     turn = 1;
-    
+
     removeExistingElements(document.querySelector(".guessOptions"));
     removeExistingElements(document.querySelector(".hint"));
     removeExistingElements(document.querySelector(".word"));
@@ -231,6 +231,15 @@ function addContinueGameButton() {
     document.querySelector(".hint").appendChild(continueGameButton);
     continueGameButton.addEventListener("click", startNewGame);
 }
+
+// TODO Add option to choose difficulty
+// FIXME Change some absurd definitions
+// TODO Add more words to the database?
+// TODO Add endgame() when currentPumpkins >= 100
+// FIXME Change the CSS for the continue button (too close to the bottom-margin)
+// TODO Update pumpkin filling depending on whether the user has asked for a hint
+// TODO Change the hint-rules in README
+// TODO Add how-the-game-works imgs to README
 
 
 window.addEventListener("DOMContentLoaded", main);
