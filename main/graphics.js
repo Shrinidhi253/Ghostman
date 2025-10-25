@@ -141,6 +141,17 @@ export class WordBlock {
     getWord() {
         return this.word;
     }
+
+    autoFillLetters(guessedWord) {
+        if (guessedWord.length == this.word.length) {
+            for (let i = 0; i < guessedWord.length; i++) {
+                if (guessedWord[i] == this.word[i]) {
+                    let letterBlock = document.getElementById(`Word(0,${i})`);
+                    letterBlock.innerText = `${guessedWord[i].toUpperCase()}`;
+                }
+            }
+        }
+    }
 }
 
 export class Alphabets {

@@ -13,7 +13,7 @@ function main() {
     pumpkinPatch = new PumpkinPatch(10, 10);
     ghosts = new Ghosts();
 
-    let wordGenerator = new WordGenerator("hard");
+    let wordGenerator = new WordGenerator("normal");
     let word = wordGenerator.generateRandomWord();
 
     wordBlock = new WordBlock(word);
@@ -138,6 +138,7 @@ function processGuessedWord() {
             pumpkinsToAdd += 2
         }
 
+        wordBlock.autoFillLetters(word);
         pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
     }
     
@@ -179,7 +180,7 @@ function endGame() {
     removeExistingElements(guessBlock);
 
     let exitMessage = document.createElement("p");
-    exitMessage.textContent = "GAME OVER (The word was " + wordBlock.getWord() + ")";
+    exitMessage.innerHTML = "The word was \"" + wordBlock.getWord() + "\"<br><br>GAME OVER";
 
     guessBlock.appendChild(exitMessage);
 }
