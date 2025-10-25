@@ -161,6 +161,7 @@ function freeAllGhosts() {
     }
 
     pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
+    currentPumpkins += pumpkinsToAdd;
 }
 
 
@@ -173,6 +174,7 @@ function breakOutAllGhosts() {
     }
 
     pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
+    currentPumpkins -= pumpkinsToRemove;
 }
 
 
@@ -202,7 +204,7 @@ function endGame() {
     removeExistingElements(document.querySelector(".hint"));
 
     let exitMessage = document.createElement("p");
-    exitMessage.innerHTML = "The word was \"" + wordBlock.getWord() + "\"<br><br>GAME OVER";
+    exitMessage.innerHTML = "The word was \"" + wordBlock.getWord();
 
     guessBlock.appendChild(exitMessage);
     addContinueGameButton();
@@ -225,10 +227,9 @@ function giveNewWord() {
     removeExistingElements(document.querySelector(".alphabets"));
     removeExistingElements(document.querySelector(".ghosts"));
 
-    //FIXME something wrong with the pumpkin addition/ subtraction
-    
-    maxTurns += 10
+    turn = 1;
 
+    //TODO This part is repeated from main()
     let newWord = wordGenerator.generateRandomWord("normal");
     let hintMessage = wordGenerator.getHint();
 
