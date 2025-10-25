@@ -1,4 +1,6 @@
 import { PumpkinPatch, Ghosts, WordBlock, Alphabets } from "./graphics.js";
+import { WordGenerator } from "./wordGenerator.js" ;
+
 let pumpkinPatch;
 let ghosts;
 let wordBlock;
@@ -173,7 +175,7 @@ function endGame() {
     removeExistingElements(guessBlock);
 
     let exitMessage = document.createElement("p");
-    exitMessage.textContent = "GAME OVER";
+    exitMessage.textContent = "GAME OVER (The word was " + wordBlock.getWord() + ")";
 
     guessBlock.appendChild(exitMessage);
 }
