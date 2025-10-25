@@ -12,7 +12,11 @@ let currentPumpkins = 0;
 function main() {
     pumpkinPatch = new PumpkinPatch(10, 10);
     ghosts = new Ghosts();
-    wordBlock = new WordBlock("pneumonic");
+
+    let wordGenerator = new WordGenerator("hard");
+    let word = wordGenerator.generateRandomWord();
+
+    wordBlock = new WordBlock(word);
     alphabets = new Alphabets();
 
     pumpkinPatch.main();
