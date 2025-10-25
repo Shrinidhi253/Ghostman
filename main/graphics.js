@@ -225,7 +225,7 @@ export class Hint {
         this.hintBlock.innerHTML = "";
 
         let hintMessage = document.createElement("p");
-        hintMessage.textContent = this.hint;
+        hintMessage.textContent = "HINT: " + this.hint;
 
         this.hintBlock.appendChild(hintMessage);
     }
