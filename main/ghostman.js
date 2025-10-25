@@ -151,6 +151,7 @@ function processGuessedWord() {
     }
 }
 
+
 function freeAllGhosts() {
     let pumpkinsToAdd = 0;
 
@@ -162,6 +163,7 @@ function freeAllGhosts() {
     pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
 }
 
+
 function breakOutAllGhosts() {
     let pumpkinsToRemove = 0;
 
@@ -172,6 +174,7 @@ function breakOutAllGhosts() {
 
     pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
 }
+
 
 function removeExistingElements(obj) {
     obj.innerHTML = "";
