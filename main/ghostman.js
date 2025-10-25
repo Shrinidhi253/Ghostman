@@ -13,17 +13,31 @@ let currentPumpkins = 0;
 
 function main() {
     pumpkinPatch = new PumpkinPatch(10, 10);
-    ghosts = new Ghosts();
+    pumpkinPatch.main();
 
+    startNewGame();
+}
+
+
+function startNewGame() {
+    turn = 1;
+    
+    removeExistingElements(document.querySelector(".guessOptions"));
+    removeExistingElements(document.querySelector(".hint"));
+    removeExistingElements(document.querySelector(".word"));
+    removeExistingElements(document.querySelector(".alphabets"));
+    removeExistingElements(document.querySelector(".ghosts"));
+
+    ghosts = new Ghosts();
+    alphabets = new Alphabets();
     wordGenerator = new WordGenerator("normal");
+
     let word = wordGenerator.generateRandomWord();
     let hintMessage = wordGenerator.getHint();
 
     wordBlock = new WordBlock(word);
-    alphabets = new Alphabets();
     hint = new Hint(hintMessage);
 
-    pumpkinPatch.main();
     ghosts.main();
     wordBlock.main();
     alphabets.main();
@@ -73,7 +87,6 @@ function promptGuessLetter() {
     }
 
     addGuessButton("letter");
-
 }
 
 
@@ -92,6 +105,21 @@ function promptGuessWord() {
     guessBlock.appendChild(guessPrompt);
 
     addGuessButton("word");
+}
+
+
+function addGuessButton(category) {
+    let confirm = document.createElement("button");
+    confirm.textContent = "GUESS";
+
+    document.querySelector(".guessOptions").appendChild(confirm);
+
+    if (category == "letter") {
+        confirm.addEventListener("click", processGuessedLetter)
+    }
+    else if (category == "word") {
+        confirm.addEventListener("click", processGuessedWord);
+    }
 }
 
 
@@ -183,21 +211,6 @@ function removeExistingElements(obj) {
 }
 
 
-function addGuessButton(category) {
-    let confirm = document.createElement("button");
-    confirm.textContent = "GUESS";
-
-    document.querySelector(".guessOptions").appendChild(confirm);
-
-    if (category == "letter") {
-        confirm.addEventListener("click", processGuessedLetter)
-    }
-    else if (category == "word") {
-        confirm.addEventListener("click", processGuessedWord);
-    }
-}
-
-
 function endGame() {
     let guessBlock = document.querySelector(".guessOptions")
     removeExistingElements(guessBlock);
@@ -216,34 +229,7 @@ function addContinueGameButton() {
     continueGameButton.textContent = "CONTINUE?"
 
     document.querySelector(".hint").appendChild(continueGameButton);
-    continueGameButton.addEventListener("click", giveNewWord);
-}
-
-
-function giveNewWord() {
-    removeExistingElements(document.querySelector(".guessOptions"));
-    removeExistingElements(document.querySelector(".hint"));
-    removeExistingElements(document.querySelector(".word"));
-    removeExistingElements(document.querySelector(".alphabets"));
-    removeExistingElements(document.querySelector(".ghosts"));
-
-    turn = 1;
-
-    //TODO This part is repeated from main()
-    let newWord = wordGenerator.generateRandomWord("normal");
-    let hintMessage = wordGenerator.getHint();
-
-    ghosts = new Ghosts();
-    wordBlock = new WordBlock(newWord);
-    alphabets = new Alphabets();
-    hint = new Hint(hintMessage);
-
-    ghosts.main()
-    wordBlock.main()
-    alphabets.main()
-
-    addGuessOptions()
-    hint.addHintButton();
+    continueGameButton.addEventListener("click", startNewGame);
 }
 
 
