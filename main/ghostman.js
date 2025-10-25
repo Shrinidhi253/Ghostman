@@ -219,7 +219,30 @@ function addContinueGameButton() {
 
 
 function giveNewWord() {
+    removeExistingElements(document.querySelector(".guessOptions"));
+    removeExistingElements(document.querySelector(".hint"));
+    removeExistingElements(document.querySelector(".word"));
+    removeExistingElements(document.querySelector(".alphabets"));
+    removeExistingElements(document.querySelector(".ghosts"));
 
+    //FIXME something wrong with the pumpkin addition/ subtraction
+    
+    maxTurns += 10
+
+    let newWord = wordGenerator.generateRandomWord("normal");
+    let hintMessage = wordGenerator.getHint();
+
+    ghosts = new Ghosts();
+    wordBlock = new WordBlock(newWord);
+    alphabets = new Alphabets();
+    hint = new Hint(hintMessage);
+
+    ghosts.main()
+    wordBlock.main()
+    alphabets.main()
+
+    addGuessOptions()
+    hint.addHintButton();
 }
 
 
