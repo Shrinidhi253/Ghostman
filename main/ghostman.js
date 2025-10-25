@@ -199,11 +199,27 @@ function addGuessButton(category) {
 function endGame() {
     let guessBlock = document.querySelector(".guessOptions")
     removeExistingElements(guessBlock);
+    removeExistingElements(document.querySelector(".hint"));
 
     let exitMessage = document.createElement("p");
     exitMessage.innerHTML = "The word was \"" + wordBlock.getWord() + "\"<br><br>GAME OVER";
 
     guessBlock.appendChild(exitMessage);
+    addContinueGameButton();
+}
+
+
+function addContinueGameButton() {
+    let continueGameButton = document.createElement("button");
+    continueGameButton.textContent = "CONTINUE?"
+
+    document.querySelector(".hint").appendChild(continueGameButton);
+    continueGameButton.addEventListener("click", giveNewWord);
+}
+
+
+function giveNewWord() {
+
 }
 
 
