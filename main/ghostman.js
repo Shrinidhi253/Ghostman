@@ -263,7 +263,6 @@ function addContinueGameButton() {
 // FIXME Change some absurd definitions
 // TODO Add more words to the database?
 // TODO Add endgame() when currentPumpkins >= 100
-// FIXME Change the CSS for the continue button (too close to the bottom-margin)
 // TODO Update pumpkin filling depending on whether the user has asked for a hint
 // TODO Change the hint-rules in README
 // TODO Add how-the-game-works imgs to README
