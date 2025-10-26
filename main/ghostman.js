@@ -26,6 +26,9 @@ function addDifficultyChoice() {
     removeExistingElements(document.querySelector(".alphabets"));
     removeExistingElements(document.querySelector(".ghosts"));
 
+    ghosts = new Ghosts();
+    ghosts.main();
+
     let normalButton = document.createElement("button");
     let hardButton = document.createElement("button");
     let choiceText = document.createElement("p");
@@ -44,16 +47,15 @@ function addDifficultyChoice() {
 
     normalButton.addEventListener("click", () => startNewGame("normal"));
 
-    hardButton.addEventListener("click", () => startNewGame("hard"))
+    hardButton.addEventListener("click", () => startNewGame("hard"));
 }
 
 
 function startNewGame(difficulty) {
     turn = 1;
 
-    removeExistingElements(document.querySelector(".difficultyChoice"))
+    removeExistingElements(document.querySelector(".difficultyChoice"));
 
-    ghosts = new Ghosts();
     alphabets = new Alphabets();
     wordGenerator = new WordGenerator(difficulty);
 
@@ -63,7 +65,6 @@ function startNewGame(difficulty) {
     wordBlock = new WordBlock(word);
     hint = new Hint(hintMessage);
 
-    ghosts.main();
     wordBlock.main();
     alphabets.main();
 

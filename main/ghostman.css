@@ -115,7 +115,7 @@ div.hint button {
 
 div.difficultyChoice {
     display: flex;
-    margin-left: 8%;
+    margin-left: 10%;
     gap: 20px;
     padding-top: 3%;
 }
