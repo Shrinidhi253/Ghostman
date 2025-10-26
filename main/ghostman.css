@@ -11,7 +11,6 @@ body {
 h1 {
     font-family: "stencil";
     font-weight: lighter;
-    margin-right: 28%;
 }
 
 div.animation {
@@ -38,11 +37,16 @@ div.pumpkinPatch td {
     background-color: #60734f;
 }
 
-div.ghosts {
+div.ghostsLeft, div.ghostsRight {
     width: 100px
 }
 
-div.ghosts img {
+div.ghostsLeft img {
+    width: 100px;
+    height: 100px;
+}
+
+div.ghostsRight img {
     width: 100px;
     height: 100px;
 }
@@ -65,6 +69,7 @@ div.alphabets table {
     border-spacing: 5px;
     margin: auto;
 }
+
 div.alphabets td {
     width: 40px;
     height: 40px;
@@ -115,7 +120,7 @@ div.hint button {
 
 div.difficultyChoice {
     display: flex;
-    margin-left: 10%;
+    justify-content: center;
     gap: 20px;
     padding-top: 3%;
 }
