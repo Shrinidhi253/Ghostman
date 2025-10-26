@@ -110,24 +110,35 @@ export class Ghosts {
 
 
     freeGhost(rowInd, colInd) {
-        let row = document.getElementById(`Ghosts(${rowInd},${colInd})`);
+        let cage = document.getElementById(`Ghosts(${rowInd},${colInd})`);
         if (colInd == 0) {
-            row.innerHTML = '<img src="/images/happy_ghost_left.svg">';
+            cage.innerHTML = '<img src="/images/happy_ghost_left.svg">';
         }
         else {
-            row.innerHTML = '<img src="/images/happy_ghost_right.svg">';
+            cage.innerHTML = '<img src="/images/happy_ghost_right.svg">';
         }
         
     }
 
 
     breakOutOfCage(rowInd, colInd) {
-        let row = document.getElementById(`Ghosts(${rowInd},${colInd})`);
+        let cage = document.getElementById(`Ghosts(${rowInd},${colInd})`);
         if (colInd == 0) {
-            row.innerHTML = '<img src="/images/angry_ghost_left.svg">';
+            cage.innerHTML = '<img src="/images/angry_ghost_left.svg">';
         }
         else {
-            row.innerHTML = '<img src="/images/angry_ghost_right.svg">';
+            cage.innerHTML = '<img src="/images/angry_ghost_right.svg">';
+        }
+    }
+
+
+    freeNeutralGhost(rowInd, colInd) {
+        let cage = document.getElementById(`Ghosts(${rowInd},${colInd})`);
+        if (colInd == 0) {
+            cage.innerHTML = '<img src="/images/neutral_ghost_left.svg">';
+        }
+        else {
+            cage.innerHTML = '<img src="/images/neutral_ghost_right.svg">';
         }
     }
 }
@@ -242,37 +253,5 @@ export class Alphabets {
 
         let alphabetCell = document.getElementById(`Alphabets(${rowInd},${colInd})`);
         alphabetCell.style.backgroundColor = colour;
-    }
-}
-
-
-// region Hint
-export class Hint {
-    hintBlock = document.querySelector(".hint");
-    hint;
-
-
-    constructor(hint) {
-        this.hint = hint
-    }
-
-
-    addHintButton() {
-        let hintButton = document.createElement("button");
-        this.hintBlock.appendChild(hintButton);
-
-        hintButton.textContent = "GET HINT";
-
-        hintButton.addEventListener("click", () => this.showHint());
-    }
-
-    
-    showHint() {
-        this.hintBlock.innerHTML = "";
-
-        let hintMessage = document.createElement("p");
-        hintMessage.textContent = "HINT: " + this.hint;
-
-        this.hintBlock.appendChild(hintMessage);
     }
 }
