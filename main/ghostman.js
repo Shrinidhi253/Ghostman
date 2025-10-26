@@ -1,4 +1,4 @@
-import { PumpkinPatch, Ghosts, WordBlock, Alphabets, Hint } from "./graphics.js";
+import { PumpkinPatch, Ghosts, WordBlock, Alphabets} from "./graphics.js";
 import { WordGenerator } from "./wordGenerator.js" ;
 
 let pumpkinPatch;
@@ -6,7 +6,6 @@ let ghosts;
 let wordBlock;
 let alphabets;
 let wordGenerator;
-let hint;
 let maxTurns = 10;
 let turn = 1;
 let currentPumpkins = 0;
@@ -65,13 +64,12 @@ function startNewGame(difficulty) {
     let hintMessage = wordGenerator.getHint();
 
     wordBlock = new WordBlock(word);
-    hint = new Hint(hintMessage);
 
     wordBlock.main();
     alphabets.main();
 
     addGuessOptions();
-    hint.addHintButton();
+    addHintButton(hintMessage);
 }
 
 
@@ -231,6 +229,29 @@ function breakOutAllGhosts() {
 
     pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
     currentPumpkins -= pumpkinsToRemove;
+}
+
+
+function addHintButton(hintMessage) {
+    let hintBlock = document.querySelector(".hint");
+    let hintButton = document.createElement("button");
+
+    hintButton.textContent = "GET HINT";
+    hintBlock.appendChild(hintButton);
+    
+    hintButton.addEventListener("click", () => showHint(hintMessage));
+}
+
+
+function showHint(hintMessage) {
+    removeExistingElements(document.querySelector(".hint"));
+
+    let hintBlock = document.createElement("p");
+    hintBlock.textContent = "HINT: " + hintMessage;
+
+    document.querySelector(".hint").appendChild(hintBlock);
+
+    ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
 }
 
 
