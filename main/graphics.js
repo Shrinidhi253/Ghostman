@@ -86,23 +86,6 @@ export class Ghosts {
     }
 
 
-    /*createCages() {
-        for (let i = 0; i < this.rows; i++) {
-            let row = document.createElement("tr");
-
-            for (let j = 0; j < this.cols; j++) {
-                let col = document.createElement("td");
-
-                col.id = `Ghosts(${i},${j})`;
-                col.innerHTML = '<img src="/images/trapped_ghost.svg">'
-
-                row.appendChild(col);
-            }
-
-            this.grid.appendChild(row);
-        }
-    }*/
-
     createCages() {
         for (let j = 0; j < this.cols; j++) {
             for (let i = 0; i < this.rows; i++) {
@@ -110,14 +93,15 @@ export class Ghosts {
                 let col = document.createElement("td");
 
                 col.id = `Ghosts(${i},${j})`;
-                col.innerHTML = '<img src="/images/trapped_ghost.svg">';
-
-                row.appendChild(col);
 
                 if (j == 0) {
+                    col.innerHTML = '<img src="/images/trapped_ghost_left.svg">';
+                    row.appendChild(col);
                     this.grid1.appendChild(row);
                 }
                 else {
+                    col.innerHTML = '<img src="/images/trapped_ghost_right.svg">';
+                    row.appendChild(col);
                     this.grid2.appendChild(row);
                 }
             }
@@ -127,13 +111,24 @@ export class Ghosts {
 
     freeGhost(rowInd, colInd) {
         let row = document.getElementById(`Ghosts(${rowInd},${colInd})`);
-        row.innerHTML = '<img src="/images/happy_ghost.svg">';
+        if (colInd == 0) {
+            row.innerHTML = '<img src="/images/happy_ghost_left.svg">';
+        }
+        else {
+            row.innerHTML = '<img src="/images/happy_ghost_right.svg">';
+        }
+        
     }
 
 
     breakOutOfCage(rowInd, colInd) {
         let row = document.getElementById(`Ghosts(${rowInd},${colInd})`);
-        row.innerHTML = '<img src="/images/angry_ghost.svg">';
+        if (colInd == 0) {
+            row.innerHTML = '<img src="/images/angry_ghost_left.svg">';
+        }
+        else {
+            row.innerHTML = '<img src="/images/angry_ghost_right.svg">';
+        }
     }
 }
 
