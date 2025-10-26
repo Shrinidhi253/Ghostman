@@ -24,7 +24,9 @@ function addDifficultyChoice() {
     removeExistingElements(document.querySelector(".hint"));
     removeExistingElements(document.querySelector(".word"));
     removeExistingElements(document.querySelector(".alphabets"));
-    removeExistingElements(document.querySelector(".ghosts"));
+    removeExistingElements(document.querySelector(".ghostsLeft"));
+    removeExistingElements(document.querySelector(".ghostsRight"));
+    
 
     ghosts = new Ghosts();
     ghosts.main();

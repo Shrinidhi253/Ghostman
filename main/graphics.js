@@ -71,19 +71,22 @@ export class PumpkinPatch {
 
 // region Ghosts
 export class Ghosts {
-    ghosts = document.querySelector(".ghosts");
-    grid = document.createElement("table");
+    ghostsLeft = document.querySelector(".ghostsLeft");
+    ghostsRight = document.querySelector(".ghostsRight");
+    grid1 = document.createElement("table");
+    grid2 = document.createElement("table");
     rows = 5;
     cols = 2;
 
 
     main() {
         this.createCages();
-        this.ghosts.appendChild(this.grid);
+        this.ghostsLeft.appendChild(this.grid1);
+        this.ghostsRight.appendChild(this.grid2);
     }
 
 
-    createCages() {
+    /*createCages() {
         for (let i = 0; i < this.rows; i++) {
             let row = document.createElement("tr");
 
@@ -97,6 +100,27 @@ export class Ghosts {
             }
 
             this.grid.appendChild(row);
+        }
+    }*/
+
+    createCages() {
+        for (let j = 0; j < this.cols; j++) {
+            for (let i = 0; i < this.rows; i++) {
+                let row = document.createElement("tr");
+                let col = document.createElement("td");
+
+                col.id = `Ghosts(${i},${j})`;
+                col.innerHTML = '<img src="/images/trapped_ghost.svg">';
+
+                row.appendChild(col);
+
+                if (j == 0) {
+                    this.grid1.appendChild(row);
+                }
+                else {
+                    this.grid2.appendChild(row);
+                }
+            }
         }
     }
 
