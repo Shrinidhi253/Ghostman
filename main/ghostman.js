@@ -15,22 +15,23 @@ function main() {
     pumpkinPatch = new PumpkinPatch(10, 10);
     pumpkinPatch.main();
 
-    startNewGame();
+    addDifficultyChoice();
 }
 
 
-function startNewGame() {
+function startNewGame(difficulty) {
     turn = 1;
 
-    removeExistingElements(document.querySelector(".guessOptions"));
-    removeExistingElements(document.querySelector(".hint"));
-    removeExistingElements(document.querySelector(".word"));
-    removeExistingElements(document.querySelector(".alphabets"));
-    removeExistingElements(document.querySelector(".ghosts"));
+    removeExistingElements(document.querySelector(".difficultyChoice"))
+    //removeExistingElements(document.querySelector(".guessOptions"));
+    //removeExistingElements(document.querySelector(".hint"));
+    //removeExistingElements(document.querySelector(".word"));
+    //removeExistingElements(document.querySelector(".alphabets"));
+    //removeExistingElements(document.querySelector(".ghosts"));
 
     ghosts = new Ghosts();
     alphabets = new Alphabets();
-    wordGenerator = new WordGenerator("normal");
+    wordGenerator = new WordGenerator(difficulty);
 
     let word = wordGenerator.generateRandomWord();
     let hintMessage = wordGenerator.getHint();
@@ -217,7 +218,7 @@ function endGame() {
     removeExistingElements(document.querySelector(".hint"));
 
     let exitMessage = document.createElement("p");
-    exitMessage.innerHTML = "The word was \"" + wordBlock.getWord();
+    exitMessage.innerHTML = "The word was \"" + wordBlock.getWord() + "\"";
 
     guessBlock.appendChild(exitMessage);
     addContinueGameButton();
@@ -229,10 +230,38 @@ function addContinueGameButton() {
     continueGameButton.textContent = "CONTINUE?"
 
     document.querySelector(".hint").appendChild(continueGameButton);
-    continueGameButton.addEventListener("click", startNewGame);
+    continueGameButton.addEventListener("click", addDifficultyChoice);
 }
 
 // TODO Add option to choose difficulty
+
+function addDifficultyChoice() {
+    removeExistingElements(document.querySelector(".guessOptions"));
+    removeExistingElements(document.querySelector(".hint"));
+    removeExistingElements(document.querySelector(".word"));
+    removeExistingElements(document.querySelector(".alphabets"));
+    removeExistingElements(document.querySelector(".ghosts"));
+
+    let normalButton = document.createElement("button");
+    let hardButton = document.createElement("button");
+    let choiceText = document.createElement("p");
+
+    normalButton.id = "normalButton";
+    hardButton.id = "hardButton";
+    choiceText.id = "choiceText";
+
+    normalButton.textContent = "Normal";
+    hardButton.textContent = "Hard";
+    choiceText.textContent = "Choose a difficulty: ";
+
+    document.querySelector(".difficultyChoice").appendChild(choiceText);
+    document.querySelector(".difficultyChoice").appendChild(normalButton);
+    document.querySelector(".difficultyChoice").appendChild(hardButton);
+
+    normalButton.addEventListener("click", () => startNewGame("normal"));
+
+    hardButton.addEventListener("click", () => startNewGame("hard"))
+}
 // FIXME Change some absurd definitions
 // TODO Add more words to the database?
 // TODO Add endgame() when currentPumpkins >= 100
