@@ -154,6 +154,10 @@ function processGuessedLetter() {
     wordGenerator.buildGuessedWord(guessedLetter);
     let word = wordBlock.getWord();
 
+    if (currentPumpkins > 100) {
+        currentPumpkins = 100;
+    }
+
     if (word.includes(guessedLetter)) {
         pumpkinPatch.addPumpkins(currentPumpkins, 1);
         currentPumpkins += 1;
@@ -242,7 +246,7 @@ function addHintButton(hintMessage) {
     hintButton.addEventListener("click", () => showHint(hintMessage));
 }
 
-
+// BUG turn not getting updated when we use hint
 function showHint(hintMessage) {
     removeExistingElements(document.querySelector(".hint"));
 
@@ -252,6 +256,12 @@ function showHint(hintMessage) {
     document.querySelector(".hint").appendChild(hintBlock);
 
     ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
+
+    turn += 1;
+
+    if (turn == maxTurns) {
+        endGame();
+    }
 }
 
 
@@ -284,6 +294,8 @@ function addContinueGameButton() {
 // FIXME Change some absurd definitions
 // TODO Add more words to the database?
 // TODO Add endgame() when currentPumpkins >= 100
-
+// BUG Program just stops displaying things after sometime...
+// BUG When no. of pumpkins greater than 100, the pumpkin removal is not starting from the end
+// BUG Sometimes, in the middle of the game, not all pumpkins are cleared
 
 window.addEventListener("DOMContentLoaded", main);

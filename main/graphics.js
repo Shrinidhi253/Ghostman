@@ -37,7 +37,7 @@ export class PumpkinPatch {
         let startColInd = (currentPumpkins % this.cols);
 
         for (let i = 0; i < pumpkinsToAdd; i++) {
-            if (startColInd > 9) {
+            if (startColInd >= this.cols) { //XXX Changed startColInd > 9
                 startRowInd += 1;
                 startColInd %= this.cols;
             }
@@ -57,7 +57,7 @@ export class PumpkinPatch {
         for (let i = 0; i < pumpkinsToRemove; i++) {
             if (startColInd < 0) {
                 startRowInd -= 1;
-                startColInd %= cols;
+                startColInd = this.cols - 1; //XXX Changed startColInd %= cols
             }
 
             let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
