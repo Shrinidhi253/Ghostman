@@ -302,6 +302,5 @@ function checkPumpkinLimit() {
 // FIXME Change some absurd definitions
 // TODO Add more words to the database?
 // BUG Program just stops displaying things after sometime...
-// REFACTOR endGame messages are being printed in the hint class - create a new class
 
 window.addEventListener("DOMContentLoaded", main);
