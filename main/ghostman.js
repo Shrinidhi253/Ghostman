@@ -267,15 +267,15 @@ function removeExistingElements(obj) {
 
 
 function endGame(customMessage, continueGame = true) {
-    let guessBlock = document.querySelector(".guessOptions")
-    removeExistingElements(guessBlock);
+    let messageBlock = document.querySelector(".messages");
+    removeExistingElements(document.querySelector(".guessOptions"));
     removeExistingElements(document.querySelector(".hint"));
 
     let exitMessage = document.createElement("p");
 
     exitMessage.textContent = customMessage;
 
-    guessBlock.appendChild(exitMessage);
+    messageBlock.appendChild(exitMessage);
 
     if (continueGame) {
         addContinueGameButton();
@@ -288,7 +288,7 @@ function addContinueGameButton() {
     let continueGameButton = document.createElement("button");
     continueGameButton.textContent = "CONTINUE?"
 
-    document.querySelector(".hint").appendChild(continueGameButton);
+    document.querySelector(".messages").appendChild(continueGameButton);
     continueGameButton.addEventListener("click", addDifficultyChoice);
 }
 

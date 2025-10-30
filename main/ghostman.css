@@ -112,6 +112,7 @@ div.guessOptions input {
 div.hint {
     margin-top: 3%;
 }
+
 div.hint button {
     font-family: 'Courier New', Courier, monospace;
     color: white;
@@ -132,4 +133,12 @@ div.difficultyChoice button {
     width: 80px;
     height: 40px;
     margin-top: 1%;
+}
+
+div.messages button {
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    border: 1px solid white;
+    height: 30px;
+    background-color: rgb(37, 37, 37);
 }
