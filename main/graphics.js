@@ -33,38 +33,58 @@ export class PumpkinPatch {
 
 
     addPumpkins(currentPumpkins, pumpkinsToAdd) {
+        // prevent adding more pumpkins than the patch can hold
+        const maxCells = this.rows * this.cols;
+        const available = maxCells - currentPumpkins;
+        const toAdd = Math.max(0, Math.min(pumpkinsToAdd, available));
+
         let startRowInd = Math.floor(currentPumpkins / this.cols);
         let startColInd = (currentPumpkins % this.cols);
 
-        for (let i = 0; i < pumpkinsToAdd; i++) {
+        let actuallyAdded = 0;
+        for (let i = 0; i < toAdd; i++) {
             if (startColInd >= this.cols) { //XXX Changed startColInd > 9
                 startRowInd += 1;
                 startColInd %= this.cols;
             }
 
             let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
+            if (!pumpkinCell) break; // safety: don't attempt to write to nonexistent cells
             pumpkinCell.innerHTML = '<img src="/images/pumpkin.svg">';
 
             startColInd += 1;
+            actuallyAdded += 1;
         }
+
+        return actuallyAdded;
     }
 
 
     removePumpkins(currentPumpkins, pumpkinsToRemove) {
+        // prevent removing more pumpkins than currently present
+        const toRemove = Math.max(0, Math.min(pumpkinsToRemove, currentPumpkins));
+
+        if (toRemove === 0) return 0;
+
         let startRowInd = Math.floor((currentPumpkins - 1) / this.cols);
         let startColInd = ((currentPumpkins - 1) % this.cols);
 
-        for (let i = 0; i < pumpkinsToRemove; i++) {
+        let actuallyRemoved = 0;
+        for (let i = 0; i < toRemove; i++) {
             if (startColInd < 0) {
                 startRowInd -= 1;
                 startColInd = this.cols - 1; //XXX Changed startColInd %= cols
             }
 
             let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
+            if (!pumpkinCell) break; // safety
             pumpkinCell.innerHTML = "";
 
             startColInd -= 1;
+            actuallyRemoved += 1;
         }
+
+        return actuallyRemoved;
     }
 }
 

@@ -154,22 +154,20 @@ function processGuessedLetter() {
     wordGenerator.buildGuessedWord(guessedLetter);
     let word = wordBlock.getWord();
 
-    if (currentPumpkins > 100) {
-        currentPumpkins = 100;
-    }
-
     if (word.includes(guessedLetter)) {
-        pumpkinPatch.addPumpkins(currentPumpkins, 1);
-        currentPumpkins += 1;
+        let added = pumpkinPatch.addPumpkins(currentPumpkins, 1);
+        currentPumpkins += added;
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
         ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
         wordBlock.fillLetter(guessedLetter);
+
+        checkPumpkinLimit();
     }
     else {
         if (currentPumpkins != 0) {
-            pumpkinPatch.removePumpkins(currentPumpkins, 1)
-            currentPumpkins -= 1;
+            let removed = pumpkinPatch.removePumpkins(currentPumpkins, 1);
+            currentPumpkins -= removed;
         }
 
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
@@ -177,12 +175,12 @@ function processGuessedLetter() {
     }
     
     if (turn == maxTurns) {
-        endGame();
+        endGame("The word was \"" + wordBlock.getWord() + "\"");
     }
 
     else if (wordGenerator.getGuessedWord() == word) {
         freeAllGhosts();
-        endGame()
+        endGame("The word was \"" + wordBlock.getWord() + "\"")
     }
     
     else {
@@ -197,7 +195,7 @@ function processGuessedWord() {
     let guessedWord = document.getElementById("guessedWord").value;
     let word = wordBlock.getWord();
 
-    endGame();
+    endGame("The word was \"" + wordBlock.getWord() + "\"");
 
     if (guessedWord.toLowerCase() == word.toLowerCase()) {
         freeAllGhosts()
@@ -218,8 +216,10 @@ function freeAllGhosts() {
         pumpkinsToAdd += 2;
     }
 
-    pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
-    currentPumpkins += pumpkinsToAdd;
+    let added = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
+    currentPumpkins += added;
+
+    checkPumpkinLimit();
 }
 
 
@@ -231,8 +231,8 @@ function breakOutAllGhosts() {
         pumpkinsToRemove += 1;
     }
 
-    pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
-    currentPumpkins -= pumpkinsToRemove;
+    let removed = pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
+    currentPumpkins -= removed;
 }
 
 
@@ -260,7 +260,7 @@ function showHint(hintMessage) {
     turn += 1;
 
     if (turn == maxTurns) {
-        endGame();
+        endGame("The word was \"" + wordBlock.getWord() + "\"", true);
     }
 }
 
@@ -270,16 +270,22 @@ function removeExistingElements(obj) {
 }
 
 
-function endGame() {
+function endGame(customMessage, continueGame = true) {
     let guessBlock = document.querySelector(".guessOptions")
     removeExistingElements(guessBlock);
     removeExistingElements(document.querySelector(".hint"));
 
     let exitMessage = document.createElement("p");
-    exitMessage.innerHTML = "The word was \"" + wordBlock.getWord() + "\"";
+
+    //exitMessage.innerHTML = "The word was \"" + wordBlock.getWord() + "\"";
+    exitMessage.textContent = customMessage;
 
     guessBlock.appendChild(exitMessage);
-    addContinueGameButton();
+
+    if (continueGame) {
+        addContinueGameButton();
+    }
+    
 }
 
 
@@ -291,11 +297,19 @@ function addContinueGameButton() {
     continueGameButton.addEventListener("click", addDifficultyChoice);
 }
 
+
+function checkPumpkinLimit() {
+    if (pumpkinPatch && currentPumpkins >= (pumpkinPatch.rows * pumpkinPatch.cols)) {
+        endGame("You have filled all the pumpkins", false);
+    }
+}
+
 // FIXME Change some absurd definitions
 // TODO Add more words to the database?
 // TODO Add endgame() when currentPumpkins >= 100
 // BUG Program just stops displaying things after sometime...
 // BUG When no. of pumpkins greater than 100, the pumpkin removal is not starting from the end
 // BUG Sometimes, in the middle of the game, not all pumpkins are cleared
+// REFACTOR endGame messages are being printed in the hint class - create a new class
 
 window.addEventListener("DOMContentLoaded", main);
