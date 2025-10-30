@@ -155,8 +155,7 @@ function processGuessedLetter() {
     let word = wordBlock.getWord();
 
     if (word.includes(guessedLetter)) {
-        let added = pumpkinPatch.addPumpkins(currentPumpkins, 1);
-        currentPumpkins += added;
+        currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, 1);
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
         ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
@@ -166,8 +165,7 @@ function processGuessedLetter() {
     }
     else {
         if (currentPumpkins != 0) {
-            let removed = pumpkinPatch.removePumpkins(currentPumpkins, 1);
-            currentPumpkins -= removed;
+            currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, 1);
         }
 
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
@@ -216,8 +214,7 @@ function freeAllGhosts() {
         pumpkinsToAdd += 2;
     }
 
-    let added = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
-    currentPumpkins += added;
+    currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
 
     checkPumpkinLimit();
 }
@@ -231,8 +228,7 @@ function breakOutAllGhosts() {
         pumpkinsToRemove += 1;
     }
 
-    let removed = pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
-    currentPumpkins -= removed;
+    currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
 }
 
 
@@ -246,7 +242,7 @@ function addHintButton(hintMessage) {
     hintButton.addEventListener("click", () => showHint(hintMessage));
 }
 
-// BUG turn not getting updated when we use hint
+
 function showHint(hintMessage) {
     removeExistingElements(document.querySelector(".hint"));
 
@@ -277,7 +273,6 @@ function endGame(customMessage, continueGame = true) {
 
     let exitMessage = document.createElement("p");
 
-    //exitMessage.innerHTML = "The word was \"" + wordBlock.getWord() + "\"";
     exitMessage.textContent = customMessage;
 
     guessBlock.appendChild(exitMessage);
@@ -299,17 +294,14 @@ function addContinueGameButton() {
 
 
 function checkPumpkinLimit() {
-    if (pumpkinPatch && currentPumpkins >= (pumpkinPatch.rows * pumpkinPatch.cols)) {
+    if (currentPumpkins >= (pumpkinPatch.rows * pumpkinPatch.cols)) {
         endGame("You have filled all the pumpkins", false);
     }
 }
 
 // FIXME Change some absurd definitions
 // TODO Add more words to the database?
-// TODO Add endgame() when currentPumpkins >= 100
 // BUG Program just stops displaying things after sometime...
-// BUG When no. of pumpkins greater than 100, the pumpkin removal is not starting from the end
-// BUG Sometimes, in the middle of the game, not all pumpkins are cleared
 // REFACTOR endGame messages are being printed in the hint class - create a new class
 
 window.addEventListener("DOMContentLoaded", main);

@@ -33,58 +33,49 @@ export class PumpkinPatch {
 
 
     addPumpkins(currentPumpkins, pumpkinsToAdd) {
-        // prevent adding more pumpkins than the patch can hold
-        const maxCells = this.rows * this.cols;
-        const available = maxCells - currentPumpkins;
-        const toAdd = Math.max(0, Math.min(pumpkinsToAdd, available));
-
+        const maxPumpkins = this.rows * this.cols;
         let startRowInd = Math.floor(currentPumpkins / this.cols);
         let startColInd = (currentPumpkins % this.cols);
 
-        let actuallyAdded = 0;
-        for (let i = 0; i < toAdd; i++) {
-            if (startColInd >= this.cols) { //XXX Changed startColInd > 9
+        let i = 0;
+        while (i < pumpkinsToAdd && currentPumpkins < maxPumpkins) {
+            if (startColInd >= this.cols) {
                 startRowInd += 1;
                 startColInd %= this.cols;
             }
 
             let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
-            if (!pumpkinCell) break; // safety: don't attempt to write to nonexistent cells
             pumpkinCell.innerHTML = '<img src="/images/pumpkin.svg">';
 
             startColInd += 1;
-            actuallyAdded += 1;
+            currentPumpkins += 1;
+            i += 1;
         }
 
-        return actuallyAdded;
+        return currentPumpkins;
     }
 
 
     removePumpkins(currentPumpkins, pumpkinsToRemove) {
-        // prevent removing more pumpkins than currently present
-        const toRemove = Math.max(0, Math.min(pumpkinsToRemove, currentPumpkins));
-
-        if (toRemove === 0) return 0;
-
         let startRowInd = Math.floor((currentPumpkins - 1) / this.cols);
         let startColInd = ((currentPumpkins - 1) % this.cols);
 
-        let actuallyRemoved = 0;
-        for (let i = 0; i < toRemove; i++) {
+        let i = 0;
+        while (i < pumpkinsToRemove && currentPumpkins > 0) {
             if (startColInd < 0) {
                 startRowInd -= 1;
-                startColInd = this.cols - 1; //XXX Changed startColInd %= cols
+                startColInd = this.cols - 1;
             }
 
             let pumpkinCell = document.getElementById(`PumpkinPatch(${startRowInd},${startColInd})`);
-            if (!pumpkinCell) break; // safety
             pumpkinCell.innerHTML = "";
 
             startColInd -= 1;
-            actuallyRemoved += 1;
+            currentPumpkins -= 1;
+            i += 1;
         }
 
-        return actuallyRemoved;
+        return currentPumpkins;
     }
 }
 
