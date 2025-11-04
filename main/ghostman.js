@@ -112,7 +112,7 @@ function promptGuessLetter() {
         guessPrompt.appendChild(option);
     }
 
-    addGuessButton("letter");
+    addConfirmGuessButton("letter");
     addCancelButton();
 }
 
@@ -131,12 +131,12 @@ function promptGuessWord() {
     guessBlock.appendChild(promptText);
     guessBlock.appendChild(guessPrompt);
 
-    addGuessButton("word");
+    addConfirmGuessButton("word");
     addCancelButton();
 }
 
 // REFACTOR change the name to addConfirmGuessButton
-function addGuessButton(category) {
+function addConfirmGuessButton(category) {
     let confirm = document.createElement("button");
     confirm.textContent = "GUESS";
     confirm.id = "confirmButton";
