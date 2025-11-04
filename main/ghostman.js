@@ -78,6 +78,7 @@ function addGuessOptions() {
     let guessLetter = document.createElement("button");
     let guessWord = document.createElement("button");
 
+    removeExistingElements(guessBlock);
     guessLetter.textContent = "Guess a Letter";
     guessBlock.appendChild(guessLetter);
     guessLetter.addEventListener("click", promptGuessLetter);
@@ -85,7 +86,6 @@ function addGuessOptions() {
     guessWord.textContent = "Guess the Word";
     guessBlock.appendChild(guessWord);
     guessWord.addEventListener("click", promptGuessWord);
-
 }
 
 
@@ -113,6 +113,7 @@ function promptGuessLetter() {
     }
 
     addGuessButton("letter");
+    addCancelButton();
 }
 
 
@@ -131,12 +132,14 @@ function promptGuessWord() {
     guessBlock.appendChild(guessPrompt);
 
     addGuessButton("word");
+    addCancelButton();
 }
 
-
+// REFACTOR change the name to addConfirmGuessButton
 function addGuessButton(category) {
     let confirm = document.createElement("button");
     confirm.textContent = "GUESS";
+    confirm.id = "confirmButton";
 
     document.querySelector(".guessOptions").appendChild(confirm);
 
@@ -146,6 +149,17 @@ function addGuessButton(category) {
     else if (category == "word") {
         confirm.addEventListener("click", processGuessedWord);
     }
+}
+
+
+function addCancelButton() {
+    let cancelButton = document.createElement("button");
+    cancelButton.textContent = "CANCEL";
+    cancelButton.id = "cancelButton";
+
+    document.querySelector(".guessOptions").appendChild(cancelButton);
+
+    cancelButton.addEventListener("click", addGuessOptions);
 }
 
 
