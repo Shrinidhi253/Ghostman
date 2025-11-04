@@ -9,6 +9,12 @@ let wordGenerator;
 let maxTurns;
 let turn;
 let currentPumpkins;
+let isHardMode = false;
+
+const basePoint = 1; //Minimum number of points gained or lost
+const freeAllGhostsBonus = 2;
+const hardBonus = 2;
+
 
 function main() {
     clearGameWindow(true);
@@ -54,6 +60,12 @@ function addDifficultyChoice() {
 
 function startNewGame(difficulty) {
     turn = 1;
+    if (difficulty == "hard") {
+        isHardMode = true;
+    }
+    else {
+        isHardMode = false;
+    }
 
     removeExistingElements(document.querySelector(".difficultyChoice"));
 
@@ -135,7 +147,7 @@ function promptGuessWord() {
     addCancelButton();
 }
 
-// REFACTOR change the name to addConfirmGuessButton
+
 function addConfirmGuessButton(category) {
     let confirm = document.createElement("button");
     confirm.textContent = "GUESS";
@@ -169,7 +181,8 @@ function processGuessedLetter() {
     let word = wordBlock.getWord();
 
     if (word.includes(guessedLetter)) {
-        currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, 1);
+        let pumpkinsToAdd = isHardMode ? hardBonus + basePoint : basePoint;
+        currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
         ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
@@ -179,7 +192,7 @@ function processGuessedLetter() {
     }
     else {
         if (currentPumpkins != 0) {
-            currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, 1);
+            currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, basePoint);
         }
 
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
@@ -225,7 +238,7 @@ function freeAllGhosts() {
 
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.freeGhost((i-1) % 5, Math.floor((i-1)/5));
-        pumpkinsToAdd += 2;
+        pumpkinsToAdd += (isHardMode ? hardBonus + freeAllGhostsBonus : freeAllGhostsBonus);
     }
 
     currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
@@ -239,7 +252,7 @@ function breakOutAllGhosts() {
 
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.breakOutOfCage((i-1) % 5, Math.floor((i-1)/5));
-        pumpkinsToRemove += 1;
+        pumpkinsToRemove += basePoint;
     }
 
     currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
@@ -341,8 +354,5 @@ function clearGameWindow(restart = false) {
     removeExistingElements(document.querySelector(".ghostsRight"));
     removeExistingElements(document.querySelector(".messages"));
 }
-
-//TODO Maybe add bonus points for hard level
-//TODO Add option to go back on a decision - like cancel guess word and guess letter instead for e.g.
 
 window.addEventListener("DOMContentLoaded", main);
