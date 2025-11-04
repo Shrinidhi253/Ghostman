@@ -11,15 +11,7 @@ let turn;
 let currentPumpkins;
 
 function main() {
-    //REFACTOR this remove existing block is repeated in several places - maybe clear all elements?
-    removeExistingElements(document.querySelector(".pumpkinPatch"));
-    removeExistingElements(document.querySelector(".guessOptions"));
-    removeExistingElements(document.querySelector(".hint"));
-    removeExistingElements(document.querySelector(".word"));
-    removeExistingElements(document.querySelector(".alphabets"));
-    removeExistingElements(document.querySelector(".ghostsLeft"));
-    removeExistingElements(document.querySelector(".ghostsRight"));
-    removeExistingElements(document.querySelector(".messages"));
+    clearGameWindow(true);
 
     maxTurns = 10;
     turn = 1;
@@ -33,14 +25,7 @@ function main() {
 
 
 function addDifficultyChoice() {
-    removeExistingElements(document.querySelector(".guessOptions"));
-    removeExistingElements(document.querySelector(".hint"));
-    removeExistingElements(document.querySelector(".word"));
-    removeExistingElements(document.querySelector(".alphabets"));
-    removeExistingElements(document.querySelector(".ghostsLeft"));
-    removeExistingElements(document.querySelector(".ghostsRight"));
-    removeExistingElements(document.querySelector(".messages"));
-    
+    clearGameWindow();
 
     ghosts = new Ghosts();
     ghosts.main();
@@ -276,11 +261,6 @@ function showHint(hintMessage) {
 }
 
 
-function removeExistingElements(obj) {
-    obj.innerHTML = "";
-}
-
-
 function endGame(customMessage, continueGame = true) {
     let messageBlock = document.querySelector(".messages");
     removeExistingElements(document.querySelector(".guessOptions"));
@@ -328,6 +308,27 @@ function checkPumpkinLimit() {
     }
 }
 
+
+function removeExistingElements(obj) {
+    obj.innerHTML = "";
+}
+
+
+function clearGameWindow(restart = false) {
+    if (restart) {
+        removeExistingElements(document.querySelector(".pumpkinPatch"));
+    }
+
+    removeExistingElements(document.querySelector(".guessOptions"));
+    removeExistingElements(document.querySelector(".hint"));
+    removeExistingElements(document.querySelector(".word"));
+    removeExistingElements(document.querySelector(".alphabets"));
+    removeExistingElements(document.querySelector(".ghostsLeft"));
+    removeExistingElements(document.querySelector(".ghostsRight"));
+    removeExistingElements(document.querySelector(".messages"));
+}
+
 //TODO Maybe add bonus points for hard level
+//TODO Add option to go back on a decision - like cancel guess word and guess letter instead for e.g.
 
 window.addEventListener("DOMContentLoaded", main);
