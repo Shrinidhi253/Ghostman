@@ -6,11 +6,25 @@ let ghosts;
 let wordBlock;
 let alphabets;
 let wordGenerator;
-let maxTurns = 10;
-let turn = 1;
-let currentPumpkins = 0;
+let maxTurns;
+let turn;
+let currentPumpkins;
 
 function main() {
+    //REFACTOR this remove existing block is repeated in several places - maybe clear all elements?
+    removeExistingElements(document.querySelector(".pumpkinPatch"));
+    removeExistingElements(document.querySelector(".guessOptions"));
+    removeExistingElements(document.querySelector(".hint"));
+    removeExistingElements(document.querySelector(".word"));
+    removeExistingElements(document.querySelector(".alphabets"));
+    removeExistingElements(document.querySelector(".ghostsLeft"));
+    removeExistingElements(document.querySelector(".ghostsRight"));
+    removeExistingElements(document.querySelector(".messages"));
+
+    maxTurns = 10;
+    turn = 1;
+    currentPumpkins = 0;
+
     pumpkinPatch = new PumpkinPatch(10, 10);
     pumpkinPatch.main();
 
@@ -25,6 +39,7 @@ function addDifficultyChoice() {
     removeExistingElements(document.querySelector(".alphabets"));
     removeExistingElements(document.querySelector(".ghostsLeft"));
     removeExistingElements(document.querySelector(".ghostsRight"));
+    removeExistingElements(document.querySelector(".messages"));
     
 
     ghosts = new Ghosts();
@@ -270,6 +285,7 @@ function endGame(customMessage, continueGame = true) {
     let messageBlock = document.querySelector(".messages");
     removeExistingElements(document.querySelector(".guessOptions"));
     removeExistingElements(document.querySelector(".hint"));
+    removeExistingElements(document.querySelector(".messages"));
 
     let exitMessage = document.createElement("p");
 
@@ -280,16 +296,29 @@ function endGame(customMessage, continueGame = true) {
     if (continueGame) {
         addContinueGameButton();
     }
+
+    else {
+        addRestartGameButton();
+    }
     
 }
 
 
 function addContinueGameButton() {
     let continueGameButton = document.createElement("button");
-    continueGameButton.textContent = "CONTINUE?"
+    continueGameButton.textContent = "CONTINUE?";
 
     document.querySelector(".messages").appendChild(continueGameButton);
     continueGameButton.addEventListener("click", addDifficultyChoice);
+}
+
+
+function addRestartGameButton() {
+    let restartGameButton = document.createElement("button");
+    restartGameButton.textContent = "RESTART?";
+
+    document.querySelector(".messages").appendChild(restartGameButton);
+    restartGameButton.addEventListener("click", main);
 }
 
 
@@ -299,8 +328,6 @@ function checkPumpkinLimit() {
     }
 }
 
-// FIXME Change some absurd definitions
-// TODO Add more words to the database?
-// BUG Program just stops displaying things after sometime...
+//TODO Maybe add bonus points for hard level
 
 window.addEventListener("DOMContentLoaded", main);
