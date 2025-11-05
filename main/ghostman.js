@@ -355,4 +355,6 @@ function clearGameWindow(restart = false) {
     removeExistingElements(document.querySelector(".messages"));
 }
 
+//TODO maybe change points for the rarity of the letter?
+
 window.addEventListener("DOMContentLoaded", main);

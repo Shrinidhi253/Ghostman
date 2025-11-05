@@ -1,5 +1,5 @@
-import commonWordsData from "../dataset/common_words.json" with {type : "json"}
-import strangeWordsData from "../dataset/strange_words.json" with {type : "json"}
+import normalWordsData from "../dataset/normal_words.json" with {type : "json"}
+import hardWordsData from "../dataset/hard_words.json" with {type : "json"}
 
 export class WordGenerator {
     allWords;
@@ -10,10 +10,10 @@ export class WordGenerator {
 
     constructor(difficulty) {
         if (difficulty == "normal") {
-            this.allWords = commonWordsData;
+            this.allWords = normalWordsData;
         }
         else if (difficulty == "hard") {
-            this.allWords = strangeWordsData;
+            this.allWords = hardWordsData;
         }
         
         this.numWords = Object.keys(this.allWords).length;
