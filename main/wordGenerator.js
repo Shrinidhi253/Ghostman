@@ -20,7 +20,7 @@ export class WordGenerator {
     }
 
     generateRandomWord() {
-        this.wordInd = this.generateRandomInteger(0, this.numWords);
+        this.wordInd = this.generateRandomInteger(0, this.numWords-1);
         this.word = this.allWords[this.wordInd]["word"];
         this.guessedWord = "_".repeat(this.word.length);
         return this.word;
