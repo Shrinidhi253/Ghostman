@@ -89,6 +89,7 @@ function addGuessOptions() {
     let guessBlock = document.querySelector(".guessOptions");
     let guessLetter = document.createElement("button");
     let guessWord = document.createElement("button");
+    let giveUp = document.createElement("button");
 
     removeExistingElements(guessBlock);
     guessLetter.textContent = "Guess a Letter";
@@ -98,6 +99,10 @@ function addGuessOptions() {
     guessWord.textContent = "Guess the Word";
     guessBlock.appendChild(guessWord);
     guessWord.addEventListener("click", promptGuessWord);
+
+    giveUp.textContent = "Give up";
+    guessBlock.appendChild(giveUp);
+    giveUp.addEventListener("click", neutralAllGhosts);
 }
 
 
@@ -233,6 +238,7 @@ function processGuessedWord() {
 }
 
 
+//REFACTOR make modifyAllGhosts(change) -> action: "happy", "angry", "neutral"
 function freeAllGhosts() {
     let pumpkinsToAdd = 0;
 
@@ -258,6 +264,14 @@ function breakOutAllGhosts() {
     currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
 }
 
+
+function neutralAllGhosts() {
+    for (let i = turn; i <= maxTurns; i++) {
+        ghosts.freeNeutralGhost((i-1) % 5, Math.floor((i-1)/5));
+    }
+
+    addDifficultyChoice();
+}
 
 function addHintButton(hintMessage) {
     let hintBlock = document.querySelector(".hint");
