@@ -101,6 +101,7 @@ function addGuessOptions() {
     guessWord.addEventListener("click", promptGuessWord);
 
     giveUp.textContent = "Give up";
+    giveUp.id = "giveUp";
     guessBlock.appendChild(giveUp);
     giveUp.addEventListener("click", neutralAllGhosts);
 }
