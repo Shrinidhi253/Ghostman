@@ -194,6 +194,9 @@ function processGuessedLetter() {
 
     if (word.includes(guessedLetter)) {
         let pumpkinsToAdd = isHardMode ? hardBonus + basePoint : basePoint;
+
+        numHappyGhosts += 1;
+        totalPumpkins += pumpkinsToAdd;
         currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
@@ -206,6 +209,8 @@ function processGuessedLetter() {
         if (currentPumpkins != 0) {
             currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, basePoint);
         }
+
+        numAngryGhosts += 1;
 
         alphabets.highlightAlphabet(guessedLetter, "incorrect");
         ghosts.breakOutOfCage((turn-1) % 5, Math.floor((turn-1)/5));
@@ -251,8 +256,10 @@ function freeRemainingGhosts() {
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.freeGhost((i-1) % 5, Math.floor((i-1)/5));
         pumpkinsToAdd += (isHardMode ? hardBonus + freeRemainingGhostsBonus : freeRemainingGhostsBonus);
+        numHappyGhosts += 1;
     }
 
+    totalPumpkins += pumpkinsToAdd;
     currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
 
     checkPumpkinLimit();
@@ -265,6 +272,7 @@ function breakOutRemainingGhosts() {
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.breakOutOfCage((i-1) % 5, Math.floor((i-1)/5));
         pumpkinsToRemove += basePoint;
+        numAngryGhosts += 1;
     }
 
     currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
@@ -274,6 +282,7 @@ function breakOutRemainingGhosts() {
 function neutraliseRemainingGhosts() {
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.freeNeutralGhost((i-1) % 5, Math.floor((i-1)/5));
+        numNeutralGhosts += 1;
     }
 
     endGame("The word was \"" + wordBlock.getWord() + "\"");
@@ -300,6 +309,7 @@ function showHint(hintMessage) {
     document.querySelector(".hint").appendChild(hintBlock);
 
     ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
+    numNeutralGhosts += 1;
 
     turn += 1;
 
@@ -367,6 +377,7 @@ function clearGameWindow(restart = false) {
         removeExistingElements(document.querySelector(".pumpkinPatch"));
     }
 
+    removeExistingElements(document.querySelector(".score"));
     removeExistingElements(document.querySelector(".guessOptions"));
     removeExistingElements(document.querySelector(".hint"));
     removeExistingElements(document.querySelector(".word"));
