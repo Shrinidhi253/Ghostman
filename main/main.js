@@ -20,6 +20,8 @@ let numAngryGhosts = 0;
 let numNeutralGhosts = 0;
 let totalPumpkins = 0;
 
+
+// region beginning
 function main() {
     clearGameWindow(true);
 
@@ -87,6 +89,39 @@ function startNewGame(difficulty) {
 
     addGuessOptions();
     addHintButton(hintMessage);
+}
+
+
+// region guess
+function addHintButton(hintMessage) {
+    let hintBlock = document.querySelector(".hint");
+    let hintButton = document.createElement("button");
+
+    hintButton.textContent = "GET HINT";
+    hintBlock.appendChild(hintButton);
+    
+    hintButton.addEventListener("click", () => showHint(hintMessage));
+}
+
+
+function showHint(hintMessage) {
+    removeExistingElements(document.querySelector(".hint"));
+
+    let hintBlock = document.createElement("p");
+    hintBlock.textContent = "HINT: " + hintMessage;
+
+    document.querySelector(".hint").appendChild(hintBlock);
+
+    ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
+    numNeutralGhosts += 1;
+
+    turn += 1;
+
+    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
+
+    if (turn == maxTurns) {
+        endGame("The word was \"" + wordBlock.getWord() + "\"", true);
+    }
 }
 
 
@@ -186,6 +221,7 @@ function addCancelButton() {
 }
 
 
+// region process guess
 function processGuessedLetter() {
     let guessedLetter = document.getElementById("guessedLetter").value;
     wordGenerator.buildGuessedWord(guessedLetter);
@@ -293,39 +329,50 @@ function neutraliseRemainingGhosts() {
 }
 
 
-function addHintButton(hintMessage) {
-    let hintBlock = document.querySelector(".hint");
-    let hintButton = document.createElement("button");
+// region score
+function displayScore() {
+    removeExistingElements(document.querySelector(".score"));
 
-    hintButton.textContent = "GET HINT";
-    hintBlock.appendChild(hintButton);
-    
-    hintButton.addEventListener("click", () => showHint(hintMessage));
+    addScore("happy");
+    addScore("angry");
+    addScore("neutral");
+    addScore("pumpkin")
 }
 
 
-function showHint(hintMessage) {
-    removeExistingElements(document.querySelector(".hint"));
+function addScore(category) {
+    let scoreBlock = document.querySelector(".score");
+    let scoreGrid = document.createElement("table");
+    let scoreRow = document.createElement("tr");
+    let scoreIcon = document.createElement("td");
+    let score = document.createElement("td");
 
-    let hintBlock = document.createElement("p");
-    hintBlock.textContent = "HINT: " + hintMessage;
-
-    document.querySelector(".hint").appendChild(hintBlock);
-
-    ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
-    numNeutralGhosts += 1;
-
-    turn += 1;
-
-    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
-
-    if (turn == maxTurns) {
-        endGame("The word was \"" + wordBlock.getWord() + "\"", true);
+    if (category == "happy") {
+        scoreIcon.innerHTML = '<img src = "../images/happy_ghost_left.svg">';
+        score.textContent = `: ${numHappyGhosts}`; 
+    }
+    else if (category == "angry") {
+        scoreIcon.innerHTML = '<img src = "../images/angry_ghost_left.svg">';
+        score.textContent = `: ${numAngryGhosts}`;
+    }
+    else if (category == "neutral") {
+        scoreIcon.innerHTML = '<img src = "../images/neutral_ghost_left.svg">';
+        score.textContent = `: ${numNeutralGhosts}`;
+    }
+    else if (category == "pumpkin") {
+        scoreIcon.innerHTML = '<img src = "../images/pumpkin.svg">';
+        scoreIcon.id = "pumpkinScoreIcon";
+        score.textContent = `: ${totalPumpkins}`;
     }
 
+    scoreRow.appendChild(scoreIcon);
+    scoreRow.appendChild(score);
+    scoreGrid.appendChild(scoreRow);
+    scoreBlock.appendChild(scoreGrid);
 }
 
 
+// region end
 function endGame(customMessage, continueGame = true) {
     let messageBlock = document.querySelector(".messages");
     removeExistingElements(document.querySelector(".guessOptions"));
@@ -395,61 +442,6 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
-
-function displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins) {
-    let scoreBlock = document.querySelector(".score");
-    removeExistingElements(scoreBlock);
-
-    let happyGrid = document.createElement("table");
-    let happyRow = document.createElement("tr");
-    let happyIcon = document.createElement("td");
-    let happyScore = document.createElement("td");
-    happyIcon.innerHTML = '<img src = "../images/happy_ghost_left.svg">';
-    happyScore.textContent = `: ${numHappyGhosts}`;
-
-    happyRow.appendChild(happyIcon);
-    happyRow.appendChild(happyScore);
-    happyGrid.appendChild(happyRow);
-
-    let angryGrid = document.createElement("table");
-    let angryRow = document.createElement("tr");
-    let angryIcon = document.createElement("td");
-    let angryScore = document.createElement("td");
-    angryIcon.innerHTML = '<img src = "../images/angry_ghost_left.svg">';
-    angryScore.textContent = `: ${numAngryGhosts}`;
-
-    angryRow.appendChild(angryIcon);
-    angryRow.appendChild(angryScore);
-    angryGrid.appendChild(angryRow);
-
-    let neutralGrid = document.createElement("table");
-    let neutralRow = document.createElement("tr");
-    let neutralIcon = document.createElement("td");
-    let neutralScore = document.createElement("td");
-    neutralIcon.innerHTML = '<img src = "../images/neutral_ghost_left.svg">';
-    neutralScore.textContent = `: ${numNeutralGhosts}`;
-
-    neutralRow.appendChild(neutralIcon);
-    neutralRow.appendChild(neutralScore);
-    neutralGrid.appendChild(neutralRow);
-
-    let pumpkinGrid = document.createElement("table");
-    pumpkinGrid.id = "pumpkinScoreIcon";
-    let pumpkinRow = document.createElement("tr");
-    let pumpkinIcon = document.createElement("td");
-    let pumpkinScore = document.createElement("td");
-    pumpkinIcon.innerHTML = '<img src = "../images/pumpkin.svg">';
-    pumpkinScore.textContent = `: ${totalPumpkins}`;
-
-    pumpkinRow.appendChild(pumpkinIcon);
-    pumpkinRow.appendChild(pumpkinScore);
-    pumpkinGrid.appendChild(pumpkinRow);
-
-    scoreBlock.appendChild(happyGrid);
-    scoreBlock.appendChild(angryGrid);
-    scoreBlock.appendChild(neutralGrid);
-    scoreBlock.appendChild(pumpkinGrid);
-}
 
 // TODO Make every 100 pumpkins 1 season
 // TODO Maybe 2 ghosts = 1 pumpkin? i.e. base point = 0.5, bonus = 1
