@@ -441,7 +441,3 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
-
-// TODO Make every 100 pumpkins 1 season
-// TODO Maybe 2 ghosts = 1 pumpkin? i.e. base point = 0.5, bonus = 1
-// TODO Keep track of no. of happy, angry, neutral ghosts after every round and game
