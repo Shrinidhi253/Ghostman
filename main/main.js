@@ -38,7 +38,7 @@ function main() {
 
 function addDifficultyChoice() {
     clearGameWindow();
-    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
+    displayScore();
 
     ghosts = new Ghosts();
     ghosts.main();
@@ -92,7 +92,7 @@ function startNewGame(difficulty) {
 }
 
 
-// region guess
+// region turn actions
 function addHintButton(hintMessage) {
     let hintBlock = document.querySelector(".hint");
     let hintButton = document.createElement("button");
@@ -101,27 +101,6 @@ function addHintButton(hintMessage) {
     hintBlock.appendChild(hintButton);
     
     hintButton.addEventListener("click", () => showHint(hintMessage));
-}
-
-
-function showHint(hintMessage) {
-    removeExistingElements(document.querySelector(".hint"));
-
-    let hintBlock = document.createElement("p");
-    hintBlock.textContent = "HINT: " + hintMessage;
-
-    document.querySelector(".hint").appendChild(hintBlock);
-
-    ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
-    numNeutralGhosts += 1;
-
-    turn += 1;
-
-    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
-
-    if (turn == maxTurns) {
-        endGame("The word was \"" + wordBlock.getWord() + "\"", true);
-    }
 }
 
 
@@ -222,6 +201,26 @@ function addCancelButton() {
 
 
 // region process guess
+function showHint(hintMessage) {
+    removeExistingElements(document.querySelector(".hint"));
+
+    let hintBlock = document.createElement("p");
+    hintBlock.textContent = "HINT: " + hintMessage;
+
+    document.querySelector(".hint").appendChild(hintBlock);
+
+    ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
+    numNeutralGhosts += 1;
+
+    turn += 1;
+
+    displayScore();
+
+    if (turn == maxTurns) {
+        endGame("The word was \"" + wordBlock.getWord() + "\"", true);
+    }
+}
+
 function processGuessedLetter() {
     let guessedLetter = document.getElementById("guessedLetter").value;
     wordGenerator.buildGuessedWord(guessedLetter);
@@ -266,7 +265,7 @@ function processGuessedLetter() {
         turn += 1
     }
 
-    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
+    displayScore();
 }
 
 
@@ -285,7 +284,7 @@ function processGuessedWord() {
         breakOutRemainingGhosts();
     }
 
-    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
+    displayScore();
 }
 
 
@@ -324,7 +323,7 @@ function neutraliseRemainingGhosts() {
         numNeutralGhosts += 1;
     }
 
-    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
+    displayScore();
     endGame("The word was \"" + wordBlock.getWord() + "\"");
 }
 
