@@ -22,7 +22,6 @@ let totalPumpkins = 0;
 
 function main() {
     clearGameWindow(true);
-    
 
     maxTurns = 10;
     turn = 1;
@@ -230,6 +229,8 @@ function processGuessedLetter() {
         addGuessOptions();
         turn += 1
     }
+
+    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
 }
 
 
@@ -247,6 +248,8 @@ function processGuessedWord() {
     else {
         breakOutRemainingGhosts();
     }
+
+    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
 }
 
 
@@ -285,6 +288,7 @@ function neutraliseRemainingGhosts() {
         numNeutralGhosts += 1;
     }
 
+    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
     endGame("The word was \"" + wordBlock.getWord() + "\"");
 }
 
@@ -313,9 +317,12 @@ function showHint(hintMessage) {
 
     turn += 1;
 
+    displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins);
+
     if (turn == maxTurns) {
         endGame("The word was \"" + wordBlock.getWord() + "\"", true);
     }
+
 }
 
 
@@ -391,6 +398,7 @@ window.addEventListener("DOMContentLoaded", main);
 
 function displayScore(numHappyGhosts, numAngryGhosts, numNeutralGhosts, totalPumpkins) {
     let scoreBlock = document.querySelector(".score");
+    removeExistingElements(scoreBlock);
 
     let happyGrid = document.createElement("table");
     let happyRow = document.createElement("tr");
