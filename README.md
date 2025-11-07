@@ -1,41 +1,25 @@
 # Ghostman
 
-This project is a halloween twist on the classic Hangman game where your goal is to not hang a man, but to free as many ghosts as you can.
+This project is a halloween version of the classic hangman game.
 
-**Rules:**
-- There are 10 ghosts trapped in a cage near your pumpkin patch.
-![alt text](/images/demo/game_beginning.png)
+1. <a href="#introduction">Introduction</a>
+2. <a href="#scoring-system">Scoring system</a>
+3. <a href="#demo">Demo</a>
 
-- When YOU free a ghost, it will thank you by watering your pumpkin patch, growing 1 pumpkin.
-![alt text](/images/demo/grow_pumpkin.png)
+## Introduction
+You own a pumpkin patch, and there are 10 ghosts, each locked in a cage beside your patch.
 
-- If a ghost breaks out of the cage by itself, then it will eat a pumpkin from your patch.
-![alt text](/images/demo/eat_pumpkin.png)
+You take turns guessing an unknown word.<br>
+1. If you guess the whole word or a letter correctly, you free <em>"happy ghosts"</em> which water your patch and grow pumpkins. <br><br>
 
-You can free a ghost by:
-- taking turns to guess an unknown word.
-- In every turn you can choose to guess a letter or the entire word.
-![alt text](/images/demo/unknown_word.png)
+2. If you guess a letter or the word incorrectly, <em>"angry ghosts"</em> break out of their cages, and eat the pumpkins from your patch.<br><br>
 
-- If you guess a letter correctly, all occurrences of the letter will be revealed. and you will free one of the ghosts.
-![alt text](/images/demo/guessing_letter.png)
+3. You can choose to use a hint or give up, in which case you will free the <em>"neutral ghosts"</em> which will neither grow pumpkins nor eat the ones in your patch.<br><br>
 
-    ![alt text](/images/demo/correct_letter.png)
+4. NOTE: Your patch is small, so you can only grow a maximum of 100 pumpkins at a time. So once you have filled the patch, you can harvest it, and restart the game.<br><br>
 
-- You can use HINT and get the dictionary definition of the unknown word. This will free a "neutral" ghost. This ghost will neither water your patch, nor eat your pumpkins.
-![alt text](/images/demo/hint_used.png)
-![alt text](/images/demo/neutral_ghost.png)
+5. You can see the total number of ghosts you have made happy, angry and neutral along with the total number of pumpkins you have grown in all of the harvests combined.
 
-- When you guess the entire word correctly, all the remaining ghosts are freed and all of them will water your patch. These ghosts are extra-grateful and will grow <em><b>twice</b></em> the number of pumpkins than the one you released by guessing a letter.
-![alt text](/images/demo/guessing_word.png)
-![alt text](/images/demo/correct_word.png)
+## Scoring system
 
-A ghost breaks out of the cage by itself when:
-- you guess a letter incorrectly
-![alt text](/images/demo/incorrect_letter.png)
-- all the remaining ghosts break out of their cages when guess the entire word incorrectly.
-![alt text](/images/demo/incorrect_word.png)
-- Each of these ghosts eat one pumpkin from your patch.
-
-
-Also, your pumpkin patch is not so big. So you can only grow a maximum of 100 pumpkins :(
+## Demo
