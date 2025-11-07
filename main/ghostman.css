@@ -150,3 +150,18 @@ div.messages button {
     height: 30px;
     background-color: rgb(37, 37, 37);
 }
+
+div.score {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+div.score img {
+    width: 50px;
+}
+
+#pumpkinScoreIcon img{
+    width: 40px;
+}
