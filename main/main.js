@@ -225,13 +225,14 @@ function processGuessedLetter() {
     let guessedLetter = document.getElementById("guessedLetter").value;
     wordGenerator.buildGuessedWord(guessedLetter);
     let word = wordBlock.getWord();
+    let numPumpkinsBefore = currentPumpkins;
 
     if (word.includes(guessedLetter)) {
         let pumpkinsToAdd = isHardMode ? hardBonus + basePoint : basePoint;
 
         numHappyGhosts += 1;
-        totalPumpkins += pumpkinsToAdd;
         currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
+        totalPumpkins += (currentPumpkins - numPumpkinsBefore);
 
         alphabets.highlightAlphabet(guessedLetter, "correct");
         ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
@@ -242,6 +243,7 @@ function processGuessedLetter() {
     else {
         if (currentPumpkins != 0) {
             currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, basePoint);
+            totalPumpkins -= (currentPumpkins - numPumpkinsBefore);
         }
 
         numAngryGhosts += 1;
@@ -290,6 +292,7 @@ function processGuessedWord() {
 
 function freeRemainingGhosts() {
     let pumpkinsToAdd = 0;
+    let numPumpkinsBefore = currentPumpkins;
 
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.freeGhost((i-1) % 5, Math.floor((i-1)/5));
@@ -297,8 +300,8 @@ function freeRemainingGhosts() {
         numHappyGhosts += 1;
     }
 
-    totalPumpkins += pumpkinsToAdd;
     currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
+    totalPumpkins += (currentPumpkins - numPumpkinsBefore);
 
     checkPumpkinLimit();
 }
@@ -306,6 +309,7 @@ function freeRemainingGhosts() {
 
 function breakOutRemainingGhosts() {
     let pumpkinsToRemove = 0;
+    let numPumpkinsBefore = currentPumpkins;
 
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.breakOutOfCage((i-1) % 5, Math.floor((i-1)/5));
@@ -314,6 +318,7 @@ function breakOutRemainingGhosts() {
     }
 
     currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, pumpkinsToRemove);
+    totalPumpkins -= (numPumpkinsBefore - currentPumpkins);
 }
 
 
@@ -441,3 +446,5 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
+
+// BUG wrong total pumpkin calculation
