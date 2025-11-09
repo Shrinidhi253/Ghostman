@@ -447,4 +447,4 @@ function clearGameWindow(restart = false) {
 
 window.addEventListener("DOMContentLoaded", main);
 
-// BUG wrong total pumpkin calculation
+// TODO maybe change the number of pumpkins eaten for hard mode?
