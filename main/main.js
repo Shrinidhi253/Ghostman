@@ -11,9 +11,9 @@ let turn;
 let currentPumpkins;
 let isHardMode = false;
 
-const basePoint = 1; //Minimum number of points gained or lost
-const freeRemainingGhostsBonus = 2;
-const hardBonus = 2;
+const basePointNormal = 1;
+const basePointHard = 2;
+const remainingGhostsBonus = 1;
 
 let numHappyGhosts = 0;
 let numAngryGhosts = 0;
@@ -228,7 +228,7 @@ function processGuessedLetter() {
     let numPumpkinsBefore = currentPumpkins;
 
     if (word.includes(guessedLetter)) {
-        let pumpkinsToAdd = isHardMode ? hardBonus + basePoint : basePoint;
+        let pumpkinsToAdd = calculateChangeInPumpkins();
 
         numHappyGhosts += 1;
         currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
@@ -242,8 +242,8 @@ function processGuessedLetter() {
     }
     else {
         if (currentPumpkins != 0) {
-            currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, basePoint);
-            totalPumpkins -= (currentPumpkins - numPumpkinsBefore);
+            currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, calculateChangeInPumpkins());
+            totalPumpkins -= (numPumpkinsBefore - currentPumpkins);
         }
 
         numAngryGhosts += 1;
@@ -296,7 +296,7 @@ function freeRemainingGhosts() {
 
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.freeGhost((i-1) % 5, Math.floor((i-1)/5));
-        pumpkinsToAdd += (isHardMode ? hardBonus + freeRemainingGhostsBonus : freeRemainingGhostsBonus);
+        pumpkinsToAdd += calculateChangeInPumpkins(true);
         numHappyGhosts += 1;
     }
 
@@ -313,7 +313,7 @@ function breakOutRemainingGhosts() {
 
     for (let i = turn; i <= maxTurns; i++) {
         ghosts.breakOutOfCage((i-1) % 5, Math.floor((i-1)/5));
-        pumpkinsToRemove += basePoint;
+        pumpkinsToRemove += calculateChangeInPumpkins(true);
         numAngryGhosts += 1;
     }
 
@@ -373,6 +373,22 @@ function addScore(category) {
     scoreRow.appendChild(score);
     scoreGrid.appendChild(scoreRow);
     scoreBlock.appendChild(scoreGrid);
+}
+
+function calculateChangeInPumpkins(RemainingGhosts = false) {
+    let changeInPumpkins = 0;
+
+    if (isHardMode) {
+        changeInPumpkins += basePointHard;
+    }
+    else {
+        changeInPumpkins += basePointNormal;
+    }
+    if (RemainingGhosts) {
+        changeInPumpkins += remainingGhostsBonus;
+    }
+
+    return changeInPumpkins;
 }
 
 
@@ -446,5 +462,3 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
-
-// TODO maybe change the number of pumpkins eaten for hard mode?
