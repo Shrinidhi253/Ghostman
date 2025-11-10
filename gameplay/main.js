@@ -238,7 +238,9 @@ function processGuessedLetter() {
         ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
         wordBlock.fillLetter(guessedLetter);
 
-        checkPumpkinLimit();
+        if (turn == maxTurns) {
+            checkPumpkinLimit();
+        }
     }
     else {
         if (currentPumpkins != 0) {
@@ -462,3 +464,5 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
+
+//BUG do not give pumpkins when you guess the same letter twice.
