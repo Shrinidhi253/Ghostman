@@ -395,6 +395,7 @@ function addScore(category) {
     scoreBlock.appendChild(scoreGrid);
 }
 
+
 function calculateChangeInPumpkins(RemainingGhosts = false) {
     let changeInPumpkins = 0;
 
