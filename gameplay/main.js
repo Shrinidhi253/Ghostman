@@ -10,6 +10,7 @@ let maxTurns;
 let turn;
 let currentPumpkins;
 let isHardMode = false;
+let guessedLetters;
 
 const basePointNormal = 1;
 const basePointHard = 2;
@@ -25,6 +26,7 @@ let totalPumpkins = 0;
 function main() {
     clearGameWindow(true);
 
+    guessedLetters = new Array();
     maxTurns = 10;
     turn = 1;
     currentPumpkins = 0;
@@ -127,6 +129,7 @@ function addGuessOptions() {
 
 
 function promptGuessLetter() {
+    removeExistingElements(document.querySelector(".messages"));
     let guessBlock = document.querySelector(".guessOptions");
 
     const alphabets = "abcdefghijklmnopqrstuvwxyz";
@@ -200,7 +203,7 @@ function addCancelButton() {
 }
 
 
-// region process guess
+// region process turn
 function showHint(hintMessage) {
     removeExistingElements(document.querySelector(".hint"));
 
@@ -227,33 +230,47 @@ function processGuessedLetter() {
     let word = wordBlock.getWord();
     let numPumpkinsBefore = currentPumpkins;
 
-    if (word.includes(guessedLetter)) {
-        let pumpkinsToAdd = calculateChangeInPumpkins();
+    //Checking repeated guess
+    if (guessedLetters.includes(guessedLetter)) {
+        let message = document.createElement("p");
+        message.textContent = `You already guessed "${guessedLetter.toUpperCase()}"`;
+        document.querySelector(".messages").appendChild(message);
 
-        numHappyGhosts += 1;
-        currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
-        totalPumpkins += (currentPumpkins - numPumpkinsBefore);
-
-        alphabets.highlightAlphabet(guessedLetter, "correct");
-        ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
-        wordBlock.fillLetter(guessedLetter);
-
-        if (turn == maxTurns) {
-            checkPumpkinLimit();
-        }
+        ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
+        numNeutralGhosts += 1;
     }
+
     else {
-        if (currentPumpkins != 0) {
-            currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, calculateChangeInPumpkins());
-            totalPumpkins -= (numPumpkinsBefore - currentPumpkins);
+        // Check if the guessed letter is correct
+        if (word.includes(guessedLetter)) {
+            let pumpkinsToAdd = calculateChangeInPumpkins();
+
+            numHappyGhosts += 1;
+            currentPumpkins = pumpkinPatch.addPumpkins(currentPumpkins, pumpkinsToAdd);
+            totalPumpkins += (currentPumpkins - numPumpkinsBefore);
+
+            alphabets.highlightAlphabet(guessedLetter, "correct");
+            ghosts.freeGhost((turn-1) % 5, Math.floor((turn-1)/5));
+            wordBlock.fillLetter(guessedLetter);
+
+            if (turn == maxTurns) {
+                checkPumpkinLimit();
+            }
         }
+        else {
+            if (currentPumpkins != 0) {
+                currentPumpkins = pumpkinPatch.removePumpkins(currentPumpkins, calculateChangeInPumpkins());
+                totalPumpkins -= (numPumpkinsBefore - currentPumpkins);
+            }
 
-        numAngryGhosts += 1;
+            numAngryGhosts += 1;
 
-        alphabets.highlightAlphabet(guessedLetter, "incorrect");
-        ghosts.breakOutOfCage((turn-1) % 5, Math.floor((turn-1)/5));
+            alphabets.highlightAlphabet(guessedLetter, "incorrect");
+            ghosts.breakOutOfCage((turn-1) % 5, Math.floor((turn-1)/5));
+        }
     }
-    
+
+    //Ending turn
     if (turn == maxTurns) {
         endGame("The word was \"" + wordBlock.getWord() + "\"");
     }
@@ -262,13 +279,14 @@ function processGuessedLetter() {
         freeRemainingGhosts();
         endGame("The word was \"" + wordBlock.getWord() + "\"")
     }
-    
+
     else {
         removeExistingElements(document.querySelector(".guessOptions"));
         addGuessOptions();
         turn += 1
     }
 
+    guessedLetters.push(guessedLetter);
     displayScore();
 }
 
@@ -464,5 +482,3 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
-
-//BUG do not give pumpkins when you guess the same letter twice.
