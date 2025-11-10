@@ -27,6 +27,10 @@ You take turns guessing an unknown word.<br>
 
 ![neutral ghost](/images/demo/neutral_ghost.png) <br><br>
 
+NOTE: You will also free a neutral ghost if you guess the same letter twice
+
+![neutral ghost for repeated guess](/images/demo/repeated_guess.png)
+
 4. NOTE: Your patch is small, so you can only grow a maximum of 100 pumpkins at a time. Once you have filled the patch, you can harvest all 100 pumpkins, and restart the game.<br><br>
 
 
