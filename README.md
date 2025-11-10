@@ -1,6 +1,7 @@
 # Ghostman
 
-This project is a halloween version of the classic hangman game.
+This project is a halloween version of the classic hangman game. <br>
+<a href="https://ghostman-halloween.netlify.app/">Click here</a> to try the game.
 
 1. <a href="#introduction">Introduction</a>
 2. <a href="#scoring-system">Scoring system</a>
