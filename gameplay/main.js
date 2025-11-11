@@ -26,7 +26,6 @@ let totalPumpkins = 0;
 function main() {
     clearGameWindow(true);
 
-    guessedLetters = new Array();
     maxTurns = 10;
     turn = 1;
     currentPumpkins = 0;
@@ -69,6 +68,8 @@ function addDifficultyChoice() {
 
 function startNewGame(difficulty) {
     turn = 1;
+    guessedLetters = new Array();
+    
     if (difficulty == "hard") {
         isHardMode = true;
     }
