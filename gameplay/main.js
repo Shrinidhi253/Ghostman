@@ -484,5 +484,3 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
-
-// BUG Sometimes using hint displays continue game before all 6 ghosts are released
