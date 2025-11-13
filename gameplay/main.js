@@ -216,13 +216,13 @@ function showHint(hintMessage) {
     ghosts.freeNeutralGhost((turn-1) % 5, Math.floor((turn-1)/5));
     numNeutralGhosts += 1;
 
-    turn += 1;
-
     displayScore();
 
     if (turn == maxTurns) {
         endGame("The word was \"" + wordBlock.getWord() + "\"", true);
     }
+
+    turn += 1;
 }
 
 function processGuessedLetter() {
@@ -427,7 +427,7 @@ function endGame(customMessage, continueGame = true) {
 
     messageBlock.appendChild(exitMessage);
 
-    if (continueGame) {
+    if (continueGame && currentPumpkins < 100) {
         addContinueGameButton();
     }
 
@@ -484,3 +484,5 @@ function clearGameWindow(restart = false) {
 }
 
 window.addEventListener("DOMContentLoaded", main);
+
+// BUG Sometimes using hint displays continue game before all 6 ghosts are released
